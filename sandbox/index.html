@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recorder State Testing</title>
+
+  <style>
+    body {
+      16px;
+    }
+
+    #main {
+      margin: 0 auto;
+      width: 600px;
+    }
+
+    .status {
+      margin-bottom: 1em;
+    }
+
+    .btn {
+      text-align: center;
+      display: inline-block;
+      background: rgb(15, 16, 120);
+      color: white;
+      width: 150px;
+      cursor: pointer;
+
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .btn[disabled="disabled"]{
+      cursor: not-allowed;
+      pointer-events: none;
+      background: rgb(66, 66, 66);
+      color: rgb(111, 111, 111);
+    }
+
+    textarea:disabled {
+      background: #dddddd;
+    }
+
+    .videoWrapper textarea:disabled {
+      background: rgb(249, 249, 249);
+    }
+
+    .end {
+      background: rgb(120, 16, 15);
+    }
+
+    .videoWrapper  {
+      margin-top: 40px;
+    }
+
+  </style>
+
+</head>
+<body>
+  
+  <div id="main">
+    <div class="recordingWrapper">
+      <div class="status">Waiting</div>
+    
+      <textarea style="resize:none" name="codeCanvas" id="canvas" cols="80" rows="10"></textarea>
+      
+      <div class="actions">
+        <div id="start" class="btn start">Start Recording</div>
+        <div id="end" class="btn end" disabled="disabled">End Recording</div>      
+      </div>
+    </div>
+
+    <div class="videoWrapper">
+      <div class="videoStatus">Waiting</div>
+      <textarea disabled style="resize:none" name="codeVideo" id="video" cols="80" rows="10"></textarea>
+    </div>
+    <div id="videoActions">
+    </div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+    
+    $(function() {
+
+
+        function Video( startState, startTime ){
+          this.startState = startState;
+          this.startTime = startTime;
+          this.events = {};
+
+          return this;
+        }
+
+        // Recording Initializations
+        var startBtn = $('#start');
+        var endBtn = $('#end');
+        var canvas = $('#canvas');
+        var status = $('.status').first();
+        var newVideo = null;
+        var recording = false;
+        var startTime = undefined;
+        var endTime = undefined;
+
+        // Video Playback Initializations
+        var videos = [];
+        var videoActions = $('#videoActions');
+
+
+        // Playback Functions
+        function playVideo( index ){
+          console.log('Cueing up video ' + index);
+          console.log(' ->');
+          console.log(videos[index]);
+        }
+
+        // Recording Functions
+        function createVideoButton( index ){
+          var playbackBtn = $(document.createElement("button")); 
+          playbackBtn.prop('value', index).html(index);
+
+          videoActions.append(playbackBtn);
+        }
+
+        function storeStartState( currentVideo ){
+          // push this new video and store index to retrieve with button
+          var index = videos.push( currentVideo ) - 1;
+          createVideoButton(index);
+        }
+
+        function recordEvents( recordingCurrently ){
+          if (!recordingCurrently){
+            recording = true;
+            
+
+            newVideo = new Video(canvas.val(), Date.now());
+            startTime = newVideo.startTime;
+
+            // Get initial state of text box and store
+            console.log(newVideo);
+            // start recording
+            
+            canvas.prop('disabled', false);
+            canvas.focus();
+            switchButtonStates(recording);
+          }
+        }
+
+        function stopRecordingEvents( recordingCurrently ){
+          if (recording){
+            recording = false;
+            switchButtonStates(recording);
+            // Store final state?
+            // end recording
+            // Save
+            canvas.prop('disabled', true);
+            storeStartState(newVideo);
+          } 
+        }
+
+        function switchButtonStates( recordingCurrently ){
+          // takes
+          if (!recordingCurrently){ // switches off end button
+            endBtn.attr('disabled', true);
+            startBtn.attr('disabled', false); 
+          } else { // switches off start button
+            startBtn.attr('disabled', true);
+            endBtn.attr('disabled', false);
+          }
+        }
+
+        function changeStatus( statusText ){
+          status.html(statusText);
+        }
+
+        // Event Listeners
+        startBtn.on('click', function(){
+          recordEvents();
+          changeStatus('Recording...');
+        });
+
+        endBtn.on('click', function(){
+          switchButtonStates(recording);
+          stopRecordingEvents();
+          changeStatus('Stopped');
+        });
+        
+        $('#canvas').on('keypress', function(evt){
+          if (recording){
+            // Every Keypress I want to know some information
+            // a.) What key was pressed
+            // b.) Were any modifier keys pressed?
+            // c.) todo: Where exactly am I in the canvas (tricky) How the fuck? We know for sure how many columns there are
+            // d.) At what point in time 
+
+            var cols = canvas.cols;
+
+            var evtObj = {
+              keyPressed : evt.which,
+              ctrlKey    : evt.ctrlKey,
+              shiftKey   : evt.shiftKey,
+              altKey     : evt.altKey
+            }
+
+            newVideo.events[Date.now() - startTime] = evtObj;
+            
+          }
+        });
+
+        videoActions.on( "click", "button", function() {
+          playVideo($(this).val());
+        });
+
+
+    });
+
+  </script>
+
+</body>
+</html>

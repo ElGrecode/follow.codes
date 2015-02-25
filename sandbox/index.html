@@ -147,6 +147,7 @@
           videoElem.val(cuedVideo.startState);
           var startPlaybackTime = Date.now();
 
+          // todo: capture this interval so we can later clear it
           setInterval(function(){
             var checkIndex = Math.floor((Date.now() - startPlaybackTime) / 10);
             if (cuedVideo.events[checkIndex]){

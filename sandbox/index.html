@@ -88,7 +88,6 @@
     
     $(function() {
 
-
         function Video( startState, startTime ){
           this.startState = startState;
           this.startTime = startTime;
@@ -109,17 +108,55 @@
 
         // Video Playback Initializations
         var videos = [];
+        var videoElem = $('#video');
         var videoActions = $('#videoActions');
+        var videoStatus = $('.videoStatus').first();
 
+        var currentPlayId = undefined;
 
-        // Playback Functions
-        function playVideo( index ){
-          console.log('Cueing up video ' + index);
-          console.log(' ->');
-          console.log(videos[index]);
+        // ***** Playback Functions ***** //
+        function interpretKeyEvents( slotEvents ){
+
+          $.each(slotEvents, function( index, evt ){
+            // todo: is this a better way to read it in? I can't get it to work
+            // videoElem.trigger($.Event('keypress', {which: evt.keyPressed}));
+
+            // todo: Figure out why every letter isn't perfectly captured
+            // todo: You'll notice some are missing
+            // todo: This does not take into account backspace!!
+            videoElem.val(videoElem.val() + String.fromCharCode(evt.keyPressed));
+          })
         }
 
-        // Recording Functions
+        function stopVideo(){
+          window.clearInterval(currentPlayId);
+        }
+
+        function playVideo( index ){
+          videoStatus.html('playing');
+          videoElem.val('');
+          videoElem.focus();
+
+          // ** The video that we are cueing up
+          var cuedVideo = videos[index];
+          console.log('Cueing up video ' + index);
+          console.log(' ->');
+          console.log(cuedVideo);
+
+          // Insert starter text if there is any
+          videoElem.val(cuedVideo.startState);
+          var startPlaybackTime = Date.now();
+
+          setInterval(function(){
+            var checkIndex = Math.floor((Date.now() - startPlaybackTime) / 10);
+            if (cuedVideo.events[checkIndex]){
+              interpretKeyEvents(cuedVideo.events[checkIndex]);
+            }
+          }, 10);          
+        }
+        // ***** (end) Playback Functions ***** //
+
+        // ***** Recording Functions ***** //
         function createVideoButton( index ){
           var playbackBtn = $(document.createElement("button")); 
           playbackBtn.prop('value', index).html(index);
@@ -131,6 +168,8 @@
           // push this new video and store index to retrieve with button
           var index = videos.push( currentVideo ) - 1;
           createVideoButton(index);
+          console.log('video saved ->');
+          console.log(currentVideo);
         }
 
         function recordEvents( recordingCurrently ){
@@ -154,6 +193,7 @@
         function stopRecordingEvents( recordingCurrently ){
           if (recording){
             recording = false;
+            canvas.val('');
             switchButtonStates(recording);
             // Store final state?
             // end recording
@@ -177,6 +217,7 @@
         function changeStatus( statusText ){
           status.html(statusText);
         }
+        // ***** (end) Recording Functions ***** //
 
         // Event Listeners
         startBtn.on('click', function(){
@@ -207,10 +248,25 @@
               altKey     : evt.altKey
             }
 
-            newVideo.events[Date.now() - startTime] = evtObj;
+            var nowEventTime = Date.now();
+            // calculate time slot
+            var eventIndex = Math.floor((Date.now() - startTime) / 10);
+
+            // Push only the necessary details of the event to the event log
+            if (newVideo.events[eventIndex]){
+              // If this time slot is taken up, we push this event
+              // this will only happen if we are typing very quickly
+              newVideo.events[eventIndex].push(evtObj);
+            } else {
+              newVideo.events[eventIndex] = [evtObj];
+            }
             
           }
         });
+
+        $('#video').on('keypress', function(){
+          console.log('registering cpu generated event');
+        })
 
         videoActions.on( "click", "button", function() {
           playVideo($(this).val());

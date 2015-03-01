@@ -7,6 +7,7 @@ var React = window.React = require('react'),
 //var Timer = require("./ui/Timer");
 // old functionality with tests available
 
+
 var FollowApp = React.createClass({
   render: function() {
     return (
@@ -17,6 +18,4 @@ var FollowApp = React.createClass({
   }
 });
 
-
 React.render(<FollowApp />, mountNode);
-

@@ -4,15 +4,12 @@ var gulp = require('gulp');
 var del = require('del');
 var path = require('path');
 
-
 // Load plugins
-var $ = require('gulp-load-plugins')();
-var browserify = require('browserify');
-var watchify = require('watchify');
-var source = require('vinyl-source-stream'),
-
+var $ = require('gulp-load-plugins')(),
+    browserify = require('browserify'),
+    watchify = require('watchify'),
+    source = require('vinyl-source-stream'),
     sourceFile = './app/scripts/app.js',
-
     destFolder = './dist/scripts',
     destFileName = 'app.js';
 
@@ -138,15 +135,14 @@ gulp.task('watch', ['html', 'bundle', 'serve'], function () {
     // Watch .json files
     gulp.watch('app/scripts/**/*.json', ['json']);
 
+    // Watch .js files
+    gulp.watch('app/scripts/**/*.js', ['scripts']);
+
     // Watch .html files
     gulp.watch('app/*.html', ['html']);
 
-
     // Watch .scss files
     gulp.watch('app/styles/**/*.scss', ['styles']);
-
-
-
 
     // Watch image files
     gulp.watch('app/images/**/*', ['images']);

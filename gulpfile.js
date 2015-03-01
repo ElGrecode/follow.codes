@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var del = require('del');
 var path = require('path');
 
-// Load plugins
+//*** Load plugins ***//
 var $ = require('gulp-load-plugins')(),
     browserify = require('browserify'),
     watchify = require('watchify'),
@@ -52,6 +52,10 @@ gulp.task('scripts', function () {
 
 });
 
+gulp.task('json', function() {
+    gulp.src('app/scripts/json/**/*.json', {base: 'app/scripts'})
+        .pipe(gulp.dest('dist/scripts/'));
+});
 
 // HTML
 gulp.task('html', function () {
@@ -73,8 +77,7 @@ gulp.task('images', function () {
         .pipe($.size());
 });
 
-
-
+// Jest Testing
 gulp.task('jest', function () {
     var nodeModules = path.resolve('./node_modules');
     return gulp.src('app/scripts/**/__tests__')
@@ -83,8 +86,6 @@ gulp.task('jest', function () {
             unmockedModulePathPatterns: [nodeModules + '/react']
         }));
 });
-
-
 
 // Clean
 gulp.task('clean', function (cb) {
@@ -117,11 +118,6 @@ gulp.task('bower', function() {
 
 });
 
-gulp.task('json', function() {
-    gulp.src('app/scripts/json/**/*.json', {base: 'app/scripts'})
-        .pipe(gulp.dest('dist/scripts/'));
-});
-
 // Robots.txt and favicon.ico
 gulp.task('extras', function () {
     return gulp.src(['app/*.txt', 'app/*.ico'])
@@ -131,19 +127,14 @@ gulp.task('extras', function () {
 
 // Watch
 gulp.task('watch', ['html', 'bundle', 'serve'], function () {
-
     // Watch .json files
     gulp.watch('app/scripts/**/*.json', ['json']);
-
     // Watch .js files
     gulp.watch('app/scripts/**/*.js', ['scripts']);
-
     // Watch .html files
     gulp.watch('app/*.html', ['html']);
-
     // Watch .scss files
     gulp.watch('app/styles/**/*.scss', ['styles']);
-
     // Watch image files
     gulp.watch('app/images/**/*', ['images']);
 });

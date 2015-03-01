@@ -47,7 +47,6 @@ var FollowApp = React.createClass({
 
                     var relativeTime = eventTime - startOfTick;
 
-                    console.log(self);
                     if (tick in self.state.videoEvents){ // push event if tick is already present
                         // place event within tick with new relative time
                         self.state.videoEvents[tick][relativeTime] = self.state.eventQueue[eventTime];
@@ -97,15 +96,42 @@ var FollowApp = React.createClass({
         this.state.editor = editor;
     },
     replayVideo: function(){
-        var deltas = this.state.eventQueue;
-        console.log(deltas);
-
+        console.log('playing')
+        var videoEvents = this.state.videoEvents;
+        var TICKINCREMENT = 1000;
         var document = this.state.editor.getSession().getDocument();
-        deltas.forEach(function(deltaEvent, index){
-            setTimeout(function(){
-                document.applyDeltas([deltaEvent]);
-            }, 250 * index);
-        })
+
+        var tick = 0;
+        var playbackId = setInterval(function(){ // Every tick interval, set up queue events to fire
+
+            console.log('tick: ' + tick);
+            var eventsForTickArr = videoEvents[tick];
+            if (eventsForTickArr){ // If we have events for this tick
+                var mskeys = Object.keys(eventsForTickArr);
+                console.log(mskeys);
+
+                mskeys.forEach(function(eventTime, index){
+                    setTimeout(function(){
+                        document.applyDeltas([ eventsForTickArr[eventTime] ]);
+                    }, eventTime);
+                });
+            }
+
+            tick++;
+        }, TICKINCREMENT);
+
+        setTimeout(function(){
+            // clear playback after finished
+            conosole.log('Video Done');
+            clearInterval(playbackId);
+        }, this.state.video.lastEventTime + 1000)
+
+
+        //var deltas = this.state.eventQueue;
+        //console.log(deltas);
+
+
+
     },
     render: function() {
         return (

@@ -58,14 +58,11 @@ var CodePlayground = React.createClass({
             onLoad : null
         };
     },
+    setInitialState: function(){
+        return { queue: [''] }
+    },
     onChange: function(evt) {
-        console.log('something is changing');
-        console.log(evt);
-        // todo: capture events and record them into a data structure
-        //var value = this.editor.getValue();
-        //if (this.props.onChange) {
-        //    this.props.onChange(value);
-        //}
+        this.props.updateEditor(evt);
     },
     componentWillReceiveProps: function(nextProps) {
         this.editor = ace.edit(nextProps.name);
@@ -88,7 +85,7 @@ var CodePlayground = React.createClass({
     },
 
     componentDidMount: function() {
-        var self = this;
+        this.props.editor = this.editor;
         this.editor = ace.edit(this.props.name);
         this.editor.getSession().setMode('ace/mode/'+this.props.mode);
         this.editor.setTheme('ace/theme/'+this.props.theme);
@@ -96,9 +93,9 @@ var CodePlayground = React.createClass({
         this.editor.on('change', this.onChange);
         this.editor.setValue(this.props.value);
         this.editor.renderer.setShowGutter(this.props.showGutter);
-        if (this.props.onLoad) {
-            this.props.onLoad();
-        }
+
+        // Use editor as a mutable state
+        this.props.registerEditorState(this.editor);
     }
 
 });

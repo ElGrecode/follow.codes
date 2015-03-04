@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-//var CodePlayground = require('../components/code-playground');
 
 function Video( startTime ){
     //this.startState = startState;
@@ -121,28 +120,26 @@ var FollowApp = React.createClass({
 
         setTimeout(function(){
             // clear playback after finished
-            conosole.log('Video Done');
+            console.log('Video Done');
             clearInterval(playbackId);
         }, this.state.video.lastEventTime + 1000);
     },
     render: function() {
+        // async loading of codePlayground
+        // todo: Come up with a better solution to do this
+        var AsyncCodePlayground = this.props.AsyncCodePlayground ?
+            React.createFactory(this.props.AsyncCodePlayground) :
+            function(){ return React.createElement('div', {id: 'brace-editor'}) }; // Async fake container div
+
         return (
             <div>
-                <p>Isomorphically Rendered</p>
+                {AsyncCodePlayground({updateEditor: this.updateEditor, registerEditorState: this.registerEditor})}
+                <input type="button" onClick={this.replayVideo} value="replay" />
+                <input type="button" onClick={this.startRecording} value="Start Recording" />
+                <input type="button" onClick={this.endRecording} value="End Recording" />
             </div>
         );
     }
 });
 /* Module.exports instead of normal dom mounting */
 module.exports.FollowApp = FollowApp;
-
-
-//todo: Insert code play pen asynchonously
-// <CodePlayground updateEditor={this.updateEditor} registerEditorState={this.registerEditor} />
-//<input type="button" onClick={this.replayVideo} value="replay" />
-//<input type="button" onClick={this.startRecording} value="Start Recording" />
-//<input type="button" onClick={this.endRecording} value="End Recording" />
-// See this repository
-// Our main problem is that when we try to render our Brace editory isomorphically, it has references to the window
-// within the 3rd party code. Our node server doesn't like this. So although our frontend is cool with it, we can't
-// isomorphically render them. This presents a problem.

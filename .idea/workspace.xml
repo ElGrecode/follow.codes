@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d2e9bc7-12dd-4b7f-8e3f-69c40933633b" name="Default" comment="minor cleanup for improved development process">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/components/FollowApp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/components/code-playground.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/ui/__tests__/Timer-test.js" afterPath="$PROJECT_DIR$/app/scripts/ui/__tests__/Timer-test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/app.js" afterPath="$PROJECT_DIR$/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/coreRoutes.js" afterPath="$PROJECT_DIR$/app/routes/coreRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/styles/components/_ace.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/styles/global/_fonts.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/styles/layout/_layout.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/styles/theme/_theme.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/FollowApp.js" afterPath="$PROJECT_DIR$/app/scripts/components/FollowApp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/components/code-playground.js" afterPath="$PROJECT_DIR$/app/scripts/components/code-playground.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/main.scss" afterPath="$PROJECT_DIR$/app/styles/main.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="follow.iws" />
@@ -45,19 +46,74 @@
       <file leaf-file-name="FollowApp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/components/FollowApp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1275" max-vertical-offset="2280">
-              <caret line="132" column="118" selection-start-line="132" selection-start-column="118" selection-end-line="132" selection-end-column="118" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="2325">
+              <caret line="148" column="19" selection-start-line="148" selection-start-column="19" selection-end-line="148" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.059602648" vertical-offset="0" max-vertical-offset="755">
+            <state vertical-scroll-proportion="-1.8" vertical-offset="0" max-vertical-offset="150">
               <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/styles/main.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="510">
+              <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_theme.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/styles/theme/_theme.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.15873016" vertical-offset="0" max-vertical-offset="756">
+              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_layout.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/styles/layout/_layout.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="225">
+              <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_ace.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/styles/components/_ace.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="6825">
+              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+              <folding>
+                <element signature="e#1797#2754#2" expanded="true" />
+                <element signature="e#2883#3484#2" expanded="true" />
+                <element signature="e#3576#3833#2" expanded="true" />
+                <element signature="e#3934#4175#2" expanded="true" />
+                <element signature="e#7292#7653#1" expanded="true" />
+                <element signature="e#7659#7860#1" expanded="true" />
+                <element signature="e#8153#8514#1" expanded="true" />
+                <element signature="e#8520#8717#1" expanded="true" />
+                <element signature="e#9730#9907#2" expanded="true" />
+                <element signature="e#10180#10357#2" expanded="true" />
+                <element signature="e#10414#10599#2" expanded="true" />
+                <element signature="e#11031#11176#2" expanded="true" />
+                <element signature="e#11239#11388#2" expanded="true" />
+                <element signature="e#11454#11599#2" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,46 +123,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
               <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fc-dispatcher.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/dispatcher/fc-dispatcher.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-              <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fc-constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/constants/fc-constants.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-              <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fc-actions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/actions/fc-actions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
-              <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Timer-test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/ui/__tests__/Timer-test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-              <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -125,8 +141,8 @@
       <file leaf-file-name="code-playground.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/components/code-playground.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1635">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1665">
+              <caret line="72" column="68" selection-start-line="72" selection-start-column="68" selection-end-line="72" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -170,7 +186,6 @@
         <option value="$PROJECT_DIR$/app/scripts/ui/Timer.js" />
         <option value="$PROJECT_DIR$/app/styles/ace.css" />
         <option value="$PROJECT_DIR$/app/components/editor.js" />
-        <option value="$PROJECT_DIR$/app/styles/main.scss" />
         <option value="$PROJECT_DIR$/node_modules/brace/index.js" />
         <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/index.ejs" />
@@ -180,7 +195,6 @@
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/app/scripts/app.js" />
         <option value="$PROJECT_DIR$/app/routes/coreRoutes.js" />
-        <option value="$PROJECT_DIR$/app/scripts/components/code-playground.js" />
         <option value="$PROJECT_DIR$/app/scripts/ui/__tests__/Timer-test.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/app/scripts/constants/fc-constants.js" />
@@ -189,8 +203,13 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/app/scripts/dispatcher/dispatcher.js" />
         <option value="$PROJECT_DIR$/app/scripts/dispatcher/fc-dispatcher.js" />
-        <option value="$PROJECT_DIR$/app/scripts/components/FollowApp.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/app/styles/main.scss" />
+        <option value="$PROJECT_DIR$/app/styles/components/_ace.scss" />
+        <option value="$PROJECT_DIR$/app/styles/layout/_layout.scss" />
+        <option value="$PROJECT_DIR$/app/scripts/components/FollowApp.js" />
+        <option value="$PROJECT_DIR$/app/scripts/components/code-playground.js" />
+        <option value="$PROJECT_DIR$/app/styles/theme/_theme.scss" />
       </list>
     </option>
   </component>
@@ -292,6 +311,112 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="theme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="global" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="follow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -614,38 +739,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="915">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="615">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/coreRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/FollowApp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1950" max-vertical-offset="2310">
-          <caret line="130" column="42" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/components/code-playground.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1635">
@@ -743,22 +836,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="7290">
           <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
-          <folding>
-            <element signature="e#2279#3236#2" expanded="false" />
-            <element signature="e#3365#3966#2" expanded="false" />
-            <element signature="e#4058#4315#2" expanded="false" />
-            <element signature="e#4416#4657#2" expanded="false" />
-            <element signature="e#7774#8135#1" expanded="false" />
-            <element signature="e#8141#8342#1" expanded="false" />
-            <element signature="e#8635#8996#1" expanded="false" />
-            <element signature="e#9002#9199#1" expanded="false" />
-            <element signature="e#10212#10389#2" expanded="false" />
-            <element signature="e#10662#10839#2" expanded="false" />
-            <element signature="e#10896#11081#2" expanded="false" />
-            <element signature="e#11513#11658#2" expanded="false" />
-            <element signature="e#11721#11870#2" expanded="false" />
-            <element signature="e#11936#12081#2" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -880,29 +958,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/styles/main.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="7290">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="e#2279#3236#2" expanded="false" />
-            <element signature="e#3365#3966#2" expanded="false" />
-            <element signature="e#4058#4315#2" expanded="false" />
-            <element signature="e#4416#4657#2" expanded="false" />
-            <element signature="e#7774#8135#1" expanded="false" />
-            <element signature="e#8141#8342#1" expanded="false" />
-            <element signature="e#8635#8996#1" expanded="false" />
-            <element signature="e#9002#9199#1" expanded="false" />
-            <element signature="e#10212#10389#2" expanded="false" />
-            <element signature="e#10662#10839#2" expanded="false" />
-            <element signature="e#10896#11081#2" expanded="false" />
-            <element signature="e#11513#11658#2" expanded="false" />
-            <element signature="e#11721#11870#2" expanded="false" />
-            <element signature="e#11936#12081#2" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/brace/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.518518" vertical-offset="190069" max-vertical-offset="272850">
@@ -998,19 +1053,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/components/code-playground.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="1635">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/dispatcher/dispatcher.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
           <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8" vertical-offset="0" max-vertical-offset="150">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/styles/global/_fonts.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="780">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/styles/components/_ace.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="6825">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <folding>
+            <element signature="e#1797#2754#2" expanded="true" />
+            <element signature="e#2883#3484#2" expanded="true" />
+            <element signature="e#3576#3833#2" expanded="true" />
+            <element signature="e#3934#4175#2" expanded="true" />
+            <element signature="e#7292#7653#1" expanded="true" />
+            <element signature="e#7659#7860#1" expanded="true" />
+            <element signature="e#8153#8514#1" expanded="true" />
+            <element signature="e#8520#8717#1" expanded="true" />
+            <element signature="e#9730#9907#2" expanded="true" />
+            <element signature="e#10180#10357#2" expanded="true" />
+            <element signature="e#10414#10599#2" expanded="true" />
+            <element signature="e#11031#11176#2" expanded="true" />
+            <element signature="e#11239#11388#2" expanded="true" />
+            <element signature="e#11454#11599#2" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1024,16 +1110,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/components/FollowApp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1275" max-vertical-offset="2280">
-          <caret line="132" column="118" selection-start-line="132" selection-start-column="118" selection-end-line="132" selection-end-column="118" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="2325">
+          <caret line="148" column="19" selection-start-line="148" selection-start-column="19" selection-end-line="148" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/app/styles/layout/_layout.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.059602648" vertical-offset="0" max-vertical-offset="755">
-          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="225">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/components/code-playground.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1665">
+          <caret line="72" column="68" selection-start-line="72" selection-start-column="68" selection-end-line="72" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/styles/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="510">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/styles/theme/_theme.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15873016" vertical-offset="0" max-vertical-offset="756">
+          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
           <folding />
         </state>
       </provider>

@@ -130,17 +130,20 @@ var FollowApp = React.createClass({
         // todo: Come up with a better solution to do this
         var AsyncCodePlayground = this.props.AsyncCodePlayground ?
             React.createFactory(this.props.AsyncCodePlayground) :
-            function(){ return React.createElement('div', {id: 'brace-editor'}) }; // Async fake container div with id
+            function(){ return React.createElement('div', {id: 'brace-editor', style: {height: '100%'}}) }; // Async fake container div with id
 
         return (
             <div>
                 {AsyncCodePlayground({updateEditor: this.updateEditor, registerEditorState: this.registerEditor})}
                 <input type="button" onClick={this.replayVideo} value="replay" />
                 <input type="button" onClick={this.startRecording} value="Start Recording" />
-                <EndRecording />
+                <input type="button" onClick={this.endRecording} value="End Recording" />
+
             </div>
         );
     }
 });
 /* Module.exports instead of normal dom mounting */
 module.exports.FollowApp = FollowApp;
+
+// <EndRecording />

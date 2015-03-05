@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var EndRecording = require('./end-recording');
 
 function Video( startTime ){
     //this.startState = startState;
@@ -73,7 +74,7 @@ var FollowApp = React.createClass({
             var eventTime = Date.now(),
                 eventIndex = Math.floor((eventTime - this.state.video.startTime));
 
-            this.state.eventQueue[eventIndex] = evt.data
+            this.state.eventQueue[eventIndex] = evt.data;
             this.state.video.lastEventTime = eventIndex;
         }
     },
@@ -129,14 +130,14 @@ var FollowApp = React.createClass({
         // todo: Come up with a better solution to do this
         var AsyncCodePlayground = this.props.AsyncCodePlayground ?
             React.createFactory(this.props.AsyncCodePlayground) :
-            function(){ return React.createElement('div', {id: 'brace-editor'}) }; // Async fake container div
+            function(){ return React.createElement('div', {id: 'brace-editor'}) }; // Async fake container div with id
 
         return (
             <div>
                 {AsyncCodePlayground({updateEditor: this.updateEditor, registerEditorState: this.registerEditor})}
                 <input type="button" onClick={this.replayVideo} value="replay" />
                 <input type="button" onClick={this.startRecording} value="Start Recording" />
-                <input type="button" onClick={this.endRecording} value="End Recording" />
+                <EndRecording />
             </div>
         );
     }

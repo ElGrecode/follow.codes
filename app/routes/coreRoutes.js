@@ -1,6 +1,6 @@
 var React = require('react/addons');
 //console.log(React);
-var FollowApp = React.createFactory(require('../components/FollowApp').FollowApp);
+var FollowApp = React.createFactory(require('../scripts/components/FollowApp').FollowApp);
 
 module.exports = function(app) {
 

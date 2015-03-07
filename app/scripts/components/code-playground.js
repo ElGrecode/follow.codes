@@ -49,13 +49,14 @@ var CodePlayground = React.createClass({
             name   : 'brace-editor',
             mode   : 'javascript',
             theme  : 'monokai',
-            height : '500px',
-            width  : '500px',
+            height : '100%',
+            width  : '620px',
             fontSize  : 12,
             value: '',
             showGutter : true,
             onChange : null,
-            onLoad : null
+            onLoad : null,
+            wrapBehaviour: false
         };
     },
     setInitialState: function(){
@@ -69,6 +70,7 @@ var CodePlayground = React.createClass({
         this.editor.getSession().setMode('ace/mode/'+nextProps.mode);
         this.editor.setTheme('ace/theme/'+nextProps.theme);
         this.editor.setFontSize(nextProps.fontSize);
+        this.editor.setWrapBehavioursEnabled(nextProps.wrapBehaviour);
         this.editor.setValue(nextProps.value);
         this.editor.renderer.setShowGutter(nextProps.showGutter);
         if (nextProps.onLoad) {

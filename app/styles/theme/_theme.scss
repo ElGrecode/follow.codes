@@ -1,0 +1,12 @@
+input[type=button]{
+    background: none;
+    border: 1px solid #D5E9EC;
+    color: #D5E9EC;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+
+//todo: style more appropriately
+input[type=button]:nth-child(3n - 1){
+    margin-left: 45px;
+}

@@ -143,4 +143,4 @@ gulp.task('watch', ['html', 'bundle', 'serve'], function () {
 gulp.task('build', ['html', 'bundle', 'images', 'extras']);
 
 // Default task
-gulp.task('default', ['clean', 'build', 'jest' ]);
+gulp.task('default', ['clean', 'build', 'watch', 'serve' ]); //'jest',

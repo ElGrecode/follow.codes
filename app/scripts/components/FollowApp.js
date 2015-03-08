@@ -1,8 +1,12 @@
 /** @jsx React.DOM */
 
+// App components safe on server side
+
 var React = require('react/addons');
 var EndRecording = require('./end-recording');
 var StartRecordingBtn = require('./start-recording-btn');
+var AudioStore = require('../stores/audio');
+var RecorderStore = require('../stores/recorder');
 
 function Video( startTime ){
     //this.startState = startState;

@@ -52,6 +52,12 @@ gulp.task('scripts', function () {
 
 });
 
+gulp.task('workers', function () {
+    gulp.src('app/scripts/async/_recorderWorker.js', {base: 'app/scripts'})
+        .pipe(gulp.dest('dist/scripts/'));
+
+});
+
 gulp.task('json', function() {
     gulp.src('app/scripts/json/**/*.json', {base: 'app/scripts'})
         .pipe(gulp.dest('dist/scripts/'));
@@ -94,7 +100,7 @@ gulp.task('clean', function (cb) {
 
 
 // Bundle
-gulp.task('bundle', ['styles', 'scripts', 'bower'], function(){
+gulp.task('bundle', ['styles', 'scripts', 'workers', 'bower'], function(){
     return gulp.src('./app/*.html')
                .pipe($.useref.assets())
                .pipe($.useref.restore())

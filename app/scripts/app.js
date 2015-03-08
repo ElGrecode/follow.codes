@@ -4,7 +4,7 @@
 var React = require('react/addons');
 var FollowApp = React.createFactory(require('./components/FollowApp').FollowApp);
 var mountNode = document.getElementById('app');
-var AudioStore = require('../stores/audio');
+var Audio = require('./async/audio');
 
 // Async Components
 var AsyncCodePlayground = require('./components/code-playground');

@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var EndRecording = require('./end-recording');
+var StartRecordingBtn = require('./start-recording-btn');
 
 function Video( startTime ){
     //this.startState = startState;
@@ -136,7 +137,7 @@ var FollowApp = React.createClass({
             <div>
                 {AsyncCodePlayground({updateEditor: this.updateEditor, registerEditorState: this.registerEditor})}
                 <input type="button" onClick={this.replayVideo} value="replay" />
-                <input type="button" onClick={this.startRecording} value="Start Recording" />
+                <StartRecordingBtn />
                 <input type="button" onClick={this.endRecording} value="End Recording" />
 
             </div>

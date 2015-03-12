@@ -1,5 +1,6 @@
 var ace = require('brace');
 var React = require('react');
+var FCActions = require('../actions/fc-actions');
 require('brace/theme/monokai');
 //require('brace/theme/github');
 //require('brace/theme/tomorrow');
@@ -62,8 +63,8 @@ var CodePlayground = React.createClass({
     setInitialState: function(){
         return { queue: [''] }
     },
-    onChange: function(evt) {
-        this.props.updateEditor(evt);
+    captureCodingEvent: function(evt) {
+        FCActions.captureCodingEvent(evt);
     },
     componentWillReceiveProps: function(nextProps) {
         this.editor = ace.edit(nextProps.name);
@@ -83,7 +84,7 @@ var CodePlayground = React.createClass({
             width: this.props.width,
             height: this.props.height
         };
-        return (<div id={this.props.name} onChange={this.onChange} style={divStyle}></div>);
+        return (<div id={this.props.name} onChange={this.captureCodingEvent} style={divStyle}></div>);
     },
 
     componentDidMount: function() {
@@ -92,7 +93,7 @@ var CodePlayground = React.createClass({
         this.editor.getSession().setMode('ace/mode/'+this.props.mode);
         this.editor.setTheme('ace/theme/'+this.props.theme);
         this.editor.setFontSize(this.props.fontSize);
-        this.editor.on('change', this.onChange);
+        this.editor.on('change', this.captureCodingEvent);
         this.editor.setValue(this.props.value);
         this.editor.renderer.setShowGutter(this.props.showGutter);
 

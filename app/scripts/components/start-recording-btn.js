@@ -1,16 +1,14 @@
 /** @jsx React.DOM */
 var React = require('react');
-//var FCActions = require('../actions/fc-actions');
+var FCActions = require('../actions/fc-actions');
 
 var StartRecordingBtn = React.createClass({
-    propTypes: {
-        onClick: React.PropTypes.func
-    },
-
+    /**
+     * Handles click on StartRecordingBtn
+     */
     handleClick: function(){
-        //FCActions.startRecording();
-        //FCActions.createVideoFormat();
-        console.log('Starting recording')
+        FCActions.startRecordingVideo();
+        FCActions.startRecordingAudio();
     },
 
     render: function(){

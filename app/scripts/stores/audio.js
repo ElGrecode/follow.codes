@@ -57,6 +57,11 @@ var AudioStore = _.extend(EventEmitter.prototype, {
                 AudioStore.emitChange();
                 break;
 
+            //case FCConstants.START_RECORDING_AUDIO:
+            //    registerAudio(audio);
+            //    AudioStore.emitChange();
+            //    break;
+
             // add more cases for other actionTypes
         }
 

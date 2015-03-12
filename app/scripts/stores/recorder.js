@@ -23,11 +23,14 @@ function registerRecorder( recorder ){
 }
 
 function startRecording(){
-    console.log('starting the recording');
+    console.log('starting the recording from within store');
+    _recorder.clear();
+    _recorder.record();
 }
 
 function stopRecording(){
     console.log('stopping the recording');
+    _processEvents()
 }
 
 // --- Public Store Methods --- //
@@ -64,8 +67,8 @@ var RecorderStore = _.extend(EventEmitter.prototype, {
                 RecorderStore.emitChange();
                 break;
 
-            case FCConstants.START_RECORDING:
-                startRecording(text);
+            case FCConstants.START_RECORDING_AUDIO:
+                startRecording();
                 RecorderStore.emitChange();
                 break;
 

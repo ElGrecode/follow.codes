@@ -22,28 +22,42 @@ var FCActions = {
             actionType: FCConstants.REGISTER_RECORDER,
             recorder: recorder
         });
+    },
+
+    /**
+     * Starts the recording the events on the code editor
+     */
+    startRecordingVideo: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.START_RECORDING_VIDEO
+        });
+    },
+
+    /**
+    * Starts the recording the audio for the screencast
+    */
+    startRecordingAudio: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.START_RECORDING_AUDIO
+        });
+    },
+
+
+    captureCodingEvent: function( evt ){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.CODING_EVENT,
+            event: evt
+        });
+    },
+
+    /**
+    * Stop recording the video
+    */
+    stopRecordingVideo: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.STOP_RECORDING_VIDEO
+        });
     }
-
-
-    ///**
-    // * Register a reference to the recording object
-    // */
-    //startRecording: function(){
-    //    FCDispatcher.handleViewAction({
-    //        actionType: FCConstants.START_RECORDING
-    //    });
-    //},
-    //
-    //
-    //
-    ///**
-    // * Stop recording the video
-    // */
-    //startRecording: function(){
-    //    FCDispatcher.handleViewAction({
-    //        actionType: FCConstants.START_RECORDING
-    //    });
-    //},
     //
     ///**
     // * Stop recording the video

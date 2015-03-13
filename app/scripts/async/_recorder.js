@@ -105,11 +105,17 @@ var Recorder = function(source, cfg){
     this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
 };
 
-//Recorder.setupDownload = function(blob, filename){
-//  var url = (window.URL || window.webkitURL).createObjectURL(blob);
-//  var link = document.getElementById("save");
-//  link.href = url;
-//  link.download = filename || 'output.wav';
-//}
+Recorder.prototype.setupDownload = function(blob, filename){
+    var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    var link = document.getElementById("save");
+    var download = filename || 'output.wav';
+
+    // todo: create a link with the url created
+    console.log(url);
+    console.log(link);
+    console.log(download);
+
+    
+};
 
 module.exports = Recorder;

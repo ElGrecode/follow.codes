@@ -57,16 +57,16 @@ var FCActions = {
         FCDispatcher.handleViewAction({
             actionType: FCConstants.STOP_RECORDING_VIDEO
         });
+    },
+
+    /**
+    * Handles stop recording audio
+    */
+    stopRecordingAudio: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.STOP_RECORDING_AUDIO
+        });
     }
-    //
-    ///**
-    // * Stop recording the video
-    // */
-    //stopRecording: function(){
-    //    FCDispatcher.handleViewAction({
-    //        actionType: FCConstants.STOP_RECORDING
-    //    });
-    //},
     //
     ///**
     // * Creates a playable video format that can be played by application

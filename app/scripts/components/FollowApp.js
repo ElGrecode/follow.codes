@@ -30,6 +30,7 @@ var FollowApp = React.createClass({
     registerEditor: function( editor ){
         this.state.editor = editor;
     },
+    // todo: determine where replay video goes (does it live on element?)
     replayVideo: function(){
         console.log('playing')
         var videoEvents = this.state.videoEvents;

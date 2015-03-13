@@ -64,7 +64,7 @@ function _processEvents( video ){
         })
     }
 
-    console.log('.videoEvents');
+    console.log('videoEvents');
     console.log(videoEvents);
 
     console.log('eventQueue');

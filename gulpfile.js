@@ -83,6 +83,11 @@ gulp.task('images', function () {
         .pipe($.size());
 });
 
+gulp.task('fonts', function() {
+    gulp.src('app/styles/fonts/*')
+        .pipe(gulp.dest('dist/styles'));
+});
+
 // Jest Testing
 gulp.task('jest', function () {
     var nodeModules = path.resolve('./node_modules');
@@ -100,7 +105,7 @@ gulp.task('clean', function (cb) {
 
 
 // Bundle
-gulp.task('bundle', ['styles', 'scripts', 'workers', 'bower'], function(){
+gulp.task('bundle', ['styles', 'fonts', 'scripts', 'workers', 'bower'], function(){
     return gulp.src('./app/*.html')
                .pipe($.useref.assets())
                .pipe($.useref.restore())

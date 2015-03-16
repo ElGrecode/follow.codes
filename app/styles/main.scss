@@ -4,7 +4,7 @@
 //--- Global
 // Global information that allow us to cascade information
 // Font, Color variables, etc
-@import "global/fonts";
+@import "fonts/fontcustom";
 
 //--- Layout
 // Abstract and related to the positioning of global elements
@@ -19,6 +19,7 @@
 // Shared pieces or blocks on pages
 // Forms, navigation
 @import "components/ace";
+@import "components/recording-actions";
 
 //--- Partials
 // Unique differences on a per partial basis

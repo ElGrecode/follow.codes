@@ -115,7 +115,7 @@ Recorder.prototype.setupDownload = function(blob, filename){
     console.log(link);
     console.log(download);
 
-    
+
 };
 
 module.exports = Recorder;

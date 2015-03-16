@@ -1,0 +1,79 @@
+{
+  "checksum": {
+    "previous": "e07386491d37c50c4fcdf38ce1fa7b7af1099aa209ebe3b577e7b8f31f0ee857",
+    "current": "e07386491d37c50c4fcdf38ce1fa7b7af1099aa209ebe3b577e7b8f31f0ee857"
+  },
+  "fonts": [
+    "../styles/fonts/fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.ttf",
+    "../styles/fonts/fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.svg",
+    "../styles/fonts/fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.woff",
+    "../styles/fonts/fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.eot"
+  ],
+  "glyphs": {
+    "line-pause": {
+      "codepoint": 61696,
+      "source": "svgs/line-pause.svg"
+    },
+    "line-play": {
+      "codepoint": 61697,
+      "source": "svgs/line-play.svg"
+    },
+    "line-radio-microphone": {
+      "codepoint": 61698,
+      "source": "svgs/line-radio-microphone.svg"
+    },
+    "line-stop": {
+      "codepoint": 61699,
+      "source": "svgs/line-stop.svg"
+    },
+    "pause": {
+      "codepoint": 61700,
+      "source": "svgs/pause.svg"
+    },
+    "play": {
+      "codepoint": 61701,
+      "source": "svgs/play.svg"
+    },
+    "radio-microphone": {
+      "codepoint": 61702,
+      "source": "svgs/radio-microphone.svg"
+    },
+    "stop": {
+      "codepoint": 61703,
+      "source": "svgs/stop.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": "fontcustom.yml",
+    "css_selector": ".icon-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "fontcustom",
+    "fonts": "../styles/fonts",
+    "force": false,
+    "input": {
+      "templates": "svgs/",
+      "vectors": "svgs/"
+    },
+    "no_hash": false,
+    "output": {
+      "css": "../styles/fonts",
+      "fonts": "../styles/fonts",
+      "preview": "../styles/fonts"
+    },
+    "preprocessor_path": "./app/styles/fonts",
+    "quiet": false,
+    "templates": [
+      "scss",
+      "preview"
+    ]
+  },
+  "templates": [
+    "../styles/fonts/_fontcustom.scss",
+    "../styles/fonts/fontcustom-preview.html"
+  ]
+}

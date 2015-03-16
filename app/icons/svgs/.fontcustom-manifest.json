@@ -1,0 +1,78 @@
+{
+  "checksum": {
+    "previous": "9d23709f74b077ae6d8aed54c2654b736a5825fa302a951d6b36ee9da006af92",
+    "current": "9d23709f74b077ae6d8aed54c2654b736a5825fa302a951d6b36ee9da006af92"
+  },
+  "fonts": [
+    "fontcustom/fontcustom_9d23709f74b077ae6d8aed54c2654b73.ttf",
+    "fontcustom/fontcustom_9d23709f74b077ae6d8aed54c2654b73.svg",
+    "fontcustom/fontcustom_9d23709f74b077ae6d8aed54c2654b73.woff",
+    "fontcustom/fontcustom_9d23709f74b077ae6d8aed54c2654b73.eot"
+  ],
+  "glyphs": {
+    "line-pause": {
+      "codepoint": 61696,
+      "source": "./line-pause.svg"
+    },
+    "line-play": {
+      "codepoint": 61697,
+      "source": "./line-play.svg"
+    },
+    "line-radio-microphone": {
+      "codepoint": 61698,
+      "source": "./line-radio-microphone.svg"
+    },
+    "line-stop": {
+      "codepoint": 61699,
+      "source": "./line-stop.svg"
+    },
+    "pause": {
+      "codepoint": 61700,
+      "source": "./pause.svg"
+    },
+    "play": {
+      "codepoint": 61701,
+      "source": "./play.svg"
+    },
+    "radio-microphone": {
+      "codepoint": 61702,
+      "source": "./radio-microphone.svg"
+    },
+    "stop": {
+      "codepoint": 61703,
+      "source": "./stop.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": false,
+    "css_selector": ".icon-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "fontcustom",
+    "force": false,
+    "input": {
+      "templates": ".",
+      "vectors": "."
+    },
+    "no_hash": false,
+    "output": {
+      "css": "fontcustom",
+      "fonts": "fontcustom",
+      "preview": "fontcustom"
+    },
+    "preprocessor_path": null,
+    "quiet": false,
+    "templates": [
+      "css",
+      "preview"
+    ]
+  },
+  "templates": [
+    "fontcustom/fontcustom.css",
+    "fontcustom/fontcustom-preview.html"
+  ]
+}

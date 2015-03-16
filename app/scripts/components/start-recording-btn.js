@@ -13,7 +13,9 @@ var StartRecordingBtn = React.createClass({
 
     render: function(){
         return (
-            <input type="button" onClick={this.handleClick} value="Start Recording" />
+            <span class="step size-16" onClick={this.handleClick} className="record-btn">
+                <i id="icon-line-radio-microphone" className="icon-line-radio-microphone"></i>
+            </span>
         )
     }
 });

@@ -1,0 +1,64 @@
+//
+// Icon Font: fontcustom
+//
+
+@font-face {
+  font-family: "fontcustom";
+  src: url("fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.eot");
+  src: url("fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.eot?#iefix") format("embedded-opentype"),
+       url("fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.woff") format("woff"),
+       url("fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.ttf") format("truetype"),
+       url("fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.svg#fontcustom") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "fontcustom";
+    src: url("fontcustom_e07386491d37c50c4fcdf38ce1fa7b7a.svg#fontcustom") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.icon-line-pause:before,
+.icon-line-play:before,
+.icon-line-radio-microphone:before,
+.icon-line-stop:before,
+.icon-pause:before,
+.icon-play:before,
+.icon-radio-microphone:before,
+.icon-stop:before {
+  display: inline-block;
+  font-family: "fontcustom";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.icon-line-pause:before { content: "\f100"; }
+.icon-line-play:before { content: "\f101"; }
+.icon-line-radio-microphone:before { content: "\f102"; }
+.icon-line-stop:before { content: "\f103"; }
+.icon-pause:before { content: "\f104"; }
+.icon-play:before { content: "\f105"; }
+.icon-radio-microphone:before { content: "\f106"; }
+.icon-stop:before { content: "\f107"; }
+
+$font-fontcustom-line-pause: "\f100";
+$font-fontcustom-line-play: "\f101";
+$font-fontcustom-line-radio-microphone: "\f102";
+$font-fontcustom-line-stop: "\f103";
+$font-fontcustom-pause: "\f104";
+$font-fontcustom-play: "\f105";
+$font-fontcustom-radio-microphone: "\f106";
+$font-fontcustom-stop: "\f107";

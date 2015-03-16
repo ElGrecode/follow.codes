@@ -1,0 +1,12 @@
+ICONS
+radio-microphone by Travis Yunis, Campinas, São Paulo, BR 2012
+line-radio-microphone by Tim Boelaars, Amsterdam, Noord-Holland, NL 2013
+
+play by Convoy, Hamburg, Hamburg, DE 2012
+line-play by Luboš Volkov, 2013
+
+stop by Mateo Zlatar, Brooklyn, New York, US 2012
+line-stop by artworkbean
+
+line-pause by Austin Condiff, South Jordan, Utah, US 2014
+pause by Chris Thoburn, Chicago 2012

@@ -74,7 +74,7 @@ templates:
 - preview
 #- my-custom-template.yml
 
-preprocessor_path: ./app/styles/fonts
+preprocessor_path: ./
 
 
 # -----------------------------------------------------------------------------

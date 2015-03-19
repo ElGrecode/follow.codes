@@ -93,7 +93,7 @@ function initAudioComponents( stream ) {
     // More visual
     //updateAnalysers();
 
-    // Register our newly creaed audio and recorder
+    // Register our newly created audio and recorder
     FCActions.registerAudio(_audio);
     FCActions.registerRecorder(_recorder);
 }
@@ -121,6 +121,7 @@ function initAudioStream() {
             }
         }, initAudioComponents, function(e) {
             // todo: Handle error / non-success
+            FCActions.recorderNotAllowable();
             console.log('Can not record without audio input');
             console.log(e);
         });

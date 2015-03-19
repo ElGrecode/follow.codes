@@ -3,11 +3,12 @@
 // App components safe on server side
 
 var React = require('react/addons');
-var StopRecordingBtn = require('./stop-recording-btn');
-var StartRecordingBtn = require('./start-recording-btn');
 var AudioStore = require('../stores/audio');
 var RecorderStore = require('../stores/recorder');
 var VideoStore = require('../stores/video');
+
+// Components
+var RecordingActions = require('./recording_actions/recording-actions');
 
 function Video( startTime ){
     //this.startState = startState;
@@ -24,7 +25,7 @@ var FollowApp = React.createClass({
             videoEvents: {},
             eventQueue: {},
             editor: {},
-            recording: false,
+            recording: false
         };
     },
     registerEditor: function( editor ){
@@ -72,10 +73,7 @@ var FollowApp = React.createClass({
         return (
             <div>
                 {AsyncCodePlayground({updateEditor: this.updateEditor, registerEditorState: this.registerEditor})}
-                <input type="button" onClick={this.replayVideo} value="replay" />
-                <StartRecordingBtn />
-                <StopRecordingBtn />
-
+                <RecordingActions />
             </div>
         );
     }

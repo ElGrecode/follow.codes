@@ -14,8 +14,17 @@ var FCActions = {
     },
 
     /**
+     * Recorder not available for this user or browser
+     */
+    recorderNotAllowable: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.RECORDER_NOT_ALLOWABLE
+        });
+    },
+
+    /**
      * Register a reference to the recording object
-     * @param {object} recording
+     * @param {object} recorder
      */
     registerRecorder: function( recorder ){
         FCDispatcher.handleViewAction({

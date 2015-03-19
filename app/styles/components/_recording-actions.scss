@@ -1,4 +1,32 @@
-.record-btn {
-    font-size: 4em;
-    color: red;
+.recording-actions {
+    position: relative;
+    padding: .2em;
+    float: left;
+    width: 200px;
+    background: $graySlightBlue;
+    border-radius: 10px;
+}
+.action-wrapper {
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.icon-circle {
+    position: absolute;
+    left: .5em;
+    top: 1em;
+    font-size: 0.7em;
+    color: $inertRecording;
+}
+.recording > .icon-circle {
+    -webkit-animation: recordingPulse 2.0s linear infinite;
+    animation: recordingPulse 2s linear infinite;
+}
+
+.record-btn,
+.play-btn,
+.stop-btn{
+    font-size: 1.5em;
+    color: $purpleAction;
 }

@@ -1,5 +1,5 @@
 /**
- * Recorder Store manages our recorder object and data
+ * Recorder Store manages our recorder object and data and through API, our audio
  */
 
 // --- Dependencies --- //
@@ -45,8 +45,16 @@ function doneEncoding( blob ) {
  */
 function registerRecorder( recorder ){
     _recorder = recorder;
+    _recorder.isAllowable = true;
     _recorder.isRecording = false;
     _recorder.recorderIndex = 0;
+}
+
+/**
+ * Mutable function sets isAllowable state on recorder object
+ */
+function recorderNotAllowable(){
+    _recorder.isAllowable = false;
 }
 
 /**
@@ -74,7 +82,6 @@ function stopRecording(){
 
 // --- Public Store Methods --- //
 var CHANGE_EVENT = 'change';
-
 var RecorderStore = _.extend(EventEmitter.prototype, {
     emitChange: function(){
         this.emit(CHANGE_EVENT);
@@ -94,16 +101,23 @@ var RecorderStore = _.extend(EventEmitter.prototype, {
         this.removeListener(CHANGE_EVENT, callback);
     },
 
+    getRecorder: function(){
+        return _recorder;
+    },
+
     dispatcherIndex: FCDispatcher.register(function(payload) {
         var action = payload.action;
         var recorder = action.recorder || '';
-        var text;
 
         switch(action.actionType) {
             case FCConstants.REGISTER_RECORDER:
                 // todo: check to make sure we have a valid recording
                 registerRecorder(recorder);
                 RecorderStore.emitChange();
+                break;
+
+            case FCConstants.RECORDER_NOT_ALLOWABLE:
+                recorderNotAllowable();
                 break;
 
             case FCConstants.START_RECORDING_AUDIO:
@@ -118,7 +132,6 @@ var RecorderStore = _.extend(EventEmitter.prototype, {
 
             // add more cases for other actionTypes
         }
-
         return true; // No errors. Needed by promise in Dispatcher.
     })
 });

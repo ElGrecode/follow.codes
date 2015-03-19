@@ -1,9 +1,10 @@
 body {
     background: #31322F;
+    font-size: 16px;
 }
 
 // mounted div for app
 #app > div {
-    height: 95%;
-    position: fixed;
+    height: 100%;
+    position: absolute;
 }

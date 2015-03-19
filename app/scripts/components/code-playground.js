@@ -50,7 +50,7 @@ var CodePlayground = React.createClass({
             name   : 'brace-editor',
             mode   : 'javascript',
             theme  : 'monokai',
-            height : '100%',
+            height : '90%',
             width  : '620px',
             fontSize  : 12,
             value: '',

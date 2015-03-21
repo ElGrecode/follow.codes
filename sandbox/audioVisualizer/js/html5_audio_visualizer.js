@@ -1,12 +1,3 @@
-/*
- * An audio spectrum visualizer built with HTML5 Audio API
- * Author:Wayou
- * License:feel free to use but keep refer pls!
- * Feb 15, 2014
- * For more infomation or support you can :
- * view the project page:https://github.com/Wayou/HTML5_Audio_Visualizer/
- * view online demo:http://wayou.github.io/HTML5_Audio_Visualizer/
- */
 window.onload = function() {
     new Visualizer().ini();
 };
@@ -45,6 +36,7 @@ Visualizer.prototype = {
             dropContainer = document.getElementsByTagName("canvas")[0];
         //listen the file upload
         audioInput.onchange = function() {
+
             if (that.audioContext===null) {return;};
 
             //the if statement fixes the file selction cancle, because the onchange will trigger even the file selection been canceled
@@ -134,8 +126,8 @@ Visualizer.prototype = {
         audioBufferSouceNode.buffer = buffer;
         //play the source
         if (!audioBufferSouceNode.start) {
-            audioBufferSouceNode.start = audioBufferSouceNode.noteOn //in old browsers use noteOn method
-            audioBufferSouceNode.stop = audioBufferSouceNode.noteOff //in old browsers use noteOn method
+            audioBufferSouceNode.start = audioBufferSouceNode.noteOn; //in old browsers use noteOn method
+            audioBufferSouceNode.stop = audioBufferSouceNode.noteOff; //in old browsers use noteOn method
         };
         //stop the previous sound if any
         if (this.animationId !== null) {

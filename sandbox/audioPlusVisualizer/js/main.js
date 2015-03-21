@@ -39,11 +39,10 @@ function saveAudio() {
 
 function gotBuffers( buffers ) {
     var canvas = document.getElementById( "wavedisplay" );
-    console.log('gotBuffers');
-    debugger;
+
     drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 
-    // the ONLY time gotBuffers is called is right after a new recording is completed -
+    // the ONLY time gotBuffers is called is right after a new recording is completed - 
     // so here's where we should set up the download.
     audioRecorder.exportWAV( doneEncoding );
 }
@@ -86,7 +85,7 @@ function cancelAnalyserUpdates() {
 
 function updateAnalysers(time) {
     if (!analyserContext) {
-        var canvas = document.getElementById("canvas");
+        var canvas = document.getElementById("analyser");
         canvasWidth = canvas.width;
         canvasHeight = canvas.height;
         analyserContext = canvas.getContext('2d');
@@ -99,7 +98,7 @@ function updateAnalysers(time) {
         var numBars = Math.round(canvasWidth / SPACING);
         var freqByteData = new Uint8Array(analyserNode.frequencyBinCount);
 
-        analyserNode.getByteFrequencyData(freqByteData);
+        analyserNode.getByteFrequencyData(freqByteData); 
 
         analyserContext.clearRect(0, 0, canvasWidth, canvasHeight);
         analyserContext.fillStyle = '#F6D565';
@@ -119,7 +118,7 @@ function updateAnalysers(time) {
             analyserContext.fillRect(i * SPACING, canvasHeight, BAR_WIDTH, -magnitude);
         }
     }
-
+    
     rafID = window.requestAnimationFrame( updateAnalysers );
 }
 
@@ -137,33 +136,20 @@ function toggleMono() {
 }
 
 function gotStream(stream) {
-    // Once we have a successful stream we can initialize the rest of our audio shit
-    // Audio Context, {}
-    // MediaStreamAudioSourceNode {} (visual?)
-    // Gain Node, {} (volume of audio graph)
-
-    console.log(audioContext);
-
-    // Takes created AudioContext and creates a gainNode
     inputPoint = audioContext.createGain();
-    console.log(inputPoint);
 
-    // Create a MediaStreamSource from our stream object AudioNode from the stream.
+    // Create an AudioNode from the stream.
     realAudioInput = audioContext.createMediaStreamSource(stream);
-    console.log(realAudioInput);
     audioInput = realAudioInput;
     audioInput.connect(inputPoint);
 
 //    audioInput = convertToMono( input );
 
-    // Visual
     analyserNode = audioContext.createAnalyser();
     analyserNode.fftSize = 2048;
     inputPoint.connect( analyserNode );
 
-    // Creates Recorder object
     audioRecorder = new Recorder( inputPoint );
-
 
     zeroGain = audioContext.createGain();
     zeroGain.gain.value = 0.0;

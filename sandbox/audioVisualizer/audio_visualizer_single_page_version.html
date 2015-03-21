@@ -1,14 +1,12 @@
 <!DOCTYPE html>
+<!--http://tympanus.net/Development/ProgressButtonStyles/-->
 <html>
     <head>
         <meta name="description" content="HTML5 Audio Spectrum Visualizer">
         <title>HTML5 Audio API showcase | Audio visualizer</title>
         <style type="text/css">
             html, body {
-                margin: 0;
-                font-family: arial, "Microsoft YaHei";
-                background-color: #272822;
-                color: #FEFEFE;
+                background-color: #272822
             }
             #fileWrapper{
                 transition:all 0.5s ease;
@@ -86,6 +84,11 @@ Visualizer.prototype = {
             console.log(e);
         }
     },
+
+
+    // add event listner listens for a change on the audio input upload file
+    // it stores a reference to this file
+    // it starts the visualizer (_start())
     _addEventListner: function() {
         var that = this,
             audioInput = document.getElementById('uploadedFile'),
@@ -93,6 +96,8 @@ Visualizer.prototype = {
         //listen the file upload
         audioInput.onchange = function() {
             if (that.audioContext===null) {return;};
+
+            console.log(that.audioContext);
 
             //the if statement fixes the file selction cancle, because the onchange will trigger even the file selection been canceled
             if (audioInput.files.length !== 0) {
@@ -141,6 +146,10 @@ Visualizer.prototype = {
             that._start();
         }, false);
     },
+
+    // start starts the visualizer up
+    // it reads and decodes a file
+    // it decodes the audio data of this file and starts the _visualize function, passing in [ audioContext and buffer ]
     _start: function() {
         //read and decode the file into audio array buffer
         var that = this,
@@ -169,6 +178,14 @@ Visualizer.prototype = {
         this._updateInfo('Starting read the file', true);
         fr.readAsArrayBuffer(file);
     },
+
+    // The meat and pototatoes of visualization
+    // It creates a few things:
+    // 1.) AudioBufferSouce node
+    // 2.) analyzer
+    // 3.) references a buffer
+
+
     _visualize: function(audioContext, buffer) {
         var audioBufferSouceNode = audioContext.createBufferSource(),
             analyser = audioContext.createAnalyser(),
@@ -284,14 +301,6 @@ Visualizer.prototype = {
         };
     }
 }
-        </script>
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', 'UA-46794744-3', 'duapp.com');
-            ga('send', 'pageview');
         </script>
     </body>
 </html>

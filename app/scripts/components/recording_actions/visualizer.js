@@ -1,57 +1,3 @@
-//function updateAnalysers(time) {
-//    if (time > 2000) { return; }
-//
-//    var analyserContext = null;
-//    if (!analyserContext) {
-//        var canvas = document.getElementById("analyser");
-//        canvasWidth = canvas.width;
-//        canvasHeight = canvas.height;
-//        analyserContext = canvas.getContext('2d');
-//    }
-//
-//    var SPACING = 12;
-//    var BAR_WIDTH = 12;
-//    var numBars = Math.round(canvasWidth / SPACING);
-//    var freqByteData = new Uint8Array(analyserNode.frequencyBinCount);
-//
-//    analyserNode.getByteFrequencyData(freqByteData);
-//
-//    analyserContext.clearRect(0, 0, canvasWidth, canvasHeight);
-//    analyserContext.fillStyle = '#912590';
-//    analyserContext.lineCap = 'round';
-//    var multiplier = analyserNode.frequencyBinCount / numBars;
-//    var step = Math.round(freqByteData.length / numBars);
-//    // Draw rectangle for each frequency bin.
-//    for (var i = 0; i < numBars; ++i) {
-//
-//        var value = freqByteData[i * step];
-//        var magnitude = 0;
-//        var offset = Math.floor( i * multiplier );
-//        for (var j = 0; j< multiplier; j++)
-//            magnitude += freqByteData[offset + j];
-//        magnitude = magnitude / multiplier;
-//        analyserContext.fillRect(i * (SPACING + 4), canvasHeight - (value / 10), BAR_WIDTH, 40);
-//    }
-//
-//
-//    window.requestAnimationFrame( updateAnalysers );
-//}
-//
-///**
-//* Create a brief visualization of our in progress audio recording
-//*/
-//function createAudioVisualizer(){
-//    var analyserNode = audio.audioContext.createAnalyser();
-//    analyserNode.fftSize = 2048;
-//    audio.sound.connect( analyserNode );
-//
-//    var zeroGain = audio.audioContext.createGain();
-//    zeroGain.gain.value = 0.0;
-//    audio.sound.connect( zeroGain );
-//    zeroGain.connect( audio.audioContext.destination );
-//    updateAnalysers();
-//}
-
 /** @jsx React.DOM */
 var React = require('react');
 var FCActions = require('../../actions/fc-actions');
@@ -85,7 +31,6 @@ var Visualizer = React.createClass({
     },
 
     _onChange: function(){
-        console.log('looking for change in visualizer');
         currentPhase = RecorderStore.getPhaseStatus();
 
         // Handle each phase

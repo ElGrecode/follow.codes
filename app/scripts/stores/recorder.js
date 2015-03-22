@@ -11,8 +11,16 @@ var FCDispatcher = require('../dispatcher/fc-dispatcher');
 // A recorder data object that manages the API for a recording
 var _recorder = {};
 
-// Draws a vizualation of a completed audio recording
+//todo: move this visualization into the component directory
+/**
+ * Draw the completed audio into a wave graph
+ * @param width
+ * @param height
+ * @param context
+ * @param data
+ */
 function drawBuffer( width, height, context, data ) {
+    console.log('drawing buffer');
     var step = Math.ceil( data.length / width );
     var amp = height / 2;
     context.fillStyle = "silver";
@@ -57,13 +65,6 @@ function doneEncoding( blob ) {
     console.log(blob);
     _recorder.setupDownload( blob, "Audio" + ((_recorder.recorderIndex<10)?"0":"") + _recorder.recorderIndex + ".wav" );
     _recorder.recorderIndex++;
-}
-
-/**
- *
- */
-function registerVAI(){
-
 }
 
 /**

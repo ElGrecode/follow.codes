@@ -21,7 +21,6 @@ function registerAudio( audio ){
     _audio = audio;
 }
 
-
 // --- Public Store Methods --- //
 var CHANGE_EVENT = 'change';
 
@@ -46,6 +45,10 @@ var AudioStore = _.extend(EventEmitter.prototype, {
         this.removeListener(CHANGE_EVENT, callback);
     },
 
+    getAudio: function(){
+        return _audio;
+    },
+
     dispatcherIndex: FCDispatcher.register(function(payload) {
         var action = payload.action;
         var text;
@@ -58,10 +61,9 @@ var AudioStore = _.extend(EventEmitter.prototype, {
                 break;
 
             //case FCConstants.START_RECORDING_AUDIO:
-            //    registerAudio(audio);
+            //    createAudioVisualizer();
             //    AudioStore.emitChange();
             //    break;
-
             // add more cases for other actionTypes
         }
 

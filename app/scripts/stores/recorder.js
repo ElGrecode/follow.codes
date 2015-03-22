@@ -10,7 +10,8 @@ var FCDispatcher = require('../dispatcher/fc-dispatcher');
 
 // A recorder data object that manages the API for a recording
 var _recorder = {};
-// temp
+
+// Draws a vizualation of a completed audio recording
 function drawBuffer( width, height, context, data ) {
     var step = Math.ceil( data.length / width );
     var amp = height / 2;
@@ -29,54 +30,6 @@ function drawBuffer( width, height, context, data ) {
         context.fillRect(i,(1+min)*amp,1,Math.max(1,(max-min)*amp));
     }
 }
-
-//_drawSpectrum: function(analyser) {
-//    var that = this,
-//        canvas = document.getElementById('canvas'),
-//        cwidth = canvas.width,
-//        cheight = canvas.height - 4,
-//        meterWidth = 5, //width of the meters in the spectrum
-//        gap = 6, //gap between meters
-//        capHeight = 2,
-//        meterNum = 12, //count of the meters
-//        capYPositionArray = []; ////store the vertical position of hte caps for the preivous frame
-//    ctx = canvas.getContext('2d'),
-//        gradient = ctx.createLinearGradient(0, 0, 0, 10);
-//    gradient.addColorStop(1, '#79218A');
-//    gradient.addColorStop(0.6, '#ED2416');
-//    gradient.addColorStop(0, '#ED2416');
-//    var drawMeter = function() {
-//        var array = new Uint8Array(analyser.frequencyBinCount);
-//        analyser.getByteFrequencyData(array);
-//        if (that.status === 0) {
-//            //fix when some sounds end the value still not back to zero
-//            for (var i = array.length - 1; i >= 0; i--) {
-//                array[i] = 0;
-//            };
-//            allCapsReachBottom = true;
-//            for (var i = capYPositionArray.length - 1; i >= 0; i--) {
-//                allCapsReachBottom = allCapsReachBottom && (capYPositionArray[i] === 0);
-//            };
-//            if (allCapsReachBottom) {
-//                cancelAnimationFrame(that.animationId); //since the sound is top and animation finished, stop the requestAnimation to prevent potential memory leak,THIS IS VERY IMPORTANT!
-//                return;
-//            };
-//        };
-//        var step = Math.round(array.length / meterNum); //sample limited data from the total array
-//        ctx.clearRect(0, 0, cwidth, cheight);
-//        for (var i = 0; i < meterNum; i++) {
-//            var value = array[i * step];
-//            if (capYPositionArray.length < Math.round(meterNum)) {
-//                capYPositionArray.push(value);
-//            };
-//            //draw the cap, with transition effect
-//            ctx.fillStyle = gradient; //set the filllStyle to gradient for a better look
-//            ctx.fillRect(i * gap /*meterWidth+gap*/ , cheight - (value / 15) + capHeight, meterWidth, cheight); //the meter
-//        }
-//        that.animationId = requestAnimationFrame(drawMeter);
-//    }
-//    this.animationId = requestAnimationFrame(drawMeter);
-//}
 
 
 // --- Private Store Methods --- //
@@ -107,6 +60,13 @@ function doneEncoding( blob ) {
 }
 
 /**
+ *
+ */
+function registerVAI(){
+
+}
+
+/**
  * Mutable function registers a reference to a previously created recorder object and attach local state
  * @param {object} recorder
  */
@@ -114,6 +74,7 @@ function registerRecorder( recorder ){
     _recorder = recorder;
     _recorder.isAllowable = true;
     _recorder.isRecording = false;
+    _recorder.phase = "unstarted";
     _recorder.recorderIndex = 0;
 }
 
@@ -132,7 +93,15 @@ function startRecording(){
         _recorder.clear();
         _recorder.record();
         _recorder.isRecording = true;
+        _recorder.phase = "started";
     }
+}
+
+/**
+ * A hook for starting/signalling the main phase of recording
+ */
+function startMainPhase(){
+    _recorder.phase = "main";
 }
 
 /**
@@ -172,11 +141,20 @@ var RecorderStore = _.extend(EventEmitter.prototype, {
         return _recorder;
     },
 
+    getPhaseStatus: function(){
+        return _recorder.phase;
+    },
+
     dispatcherIndex: FCDispatcher.register(function(payload) {
         var action = payload.action;
         var recorder = action.recorder || '';
 
         switch(action.actionType) {
+            case FCConstants.REGISTER_VAI:
+                registerVAI(payload.rafId);
+                RecorderStore.emitChange();
+                break;
+
             case FCConstants.REGISTER_RECORDER:
                 // todo: check to make sure we have a valid recording
                 registerRecorder(recorder);
@@ -189,6 +167,11 @@ var RecorderStore = _.extend(EventEmitter.prototype, {
 
             case FCConstants.START_RECORDING_AUDIO:
                 startRecording();
+                RecorderStore.emitChange();
+                break;
+
+            case FCConstants.MAIN_PHASE_RECORDING:
+                startMainPhase();
                 RecorderStore.emitChange();
                 break;
 

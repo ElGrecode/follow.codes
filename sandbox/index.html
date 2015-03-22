@@ -61,16 +61,16 @@
 
 </head>
 <body>
-  
+
   <div id="main">
     <div class="recordingWrapper">
       <div class="status">Waiting</div>
-    
+
       <textarea style="resize:none" name="codeCanvas" id="canvas" cols="80" rows="10"></textarea>
-      
+
       <div class="actions">
         <div id="start" class="btn start">Start Recording</div>
-        <div id="end" class="btn end" disabled="disabled">End Recording</div>      
+        <div id="end" class="btn end" disabled="disabled">End Recording</div>
       </div>
     </div>
 
@@ -85,7 +85,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
-    
+
     $(function() {
 
         function Video( startState, startTime ){
@@ -153,13 +153,13 @@
             if (cuedVideo.events[checkIndex]){
               interpretKeyEvents(cuedVideo.events[checkIndex]);
             }
-          }, 10);          
+          }, 10);
         }
         // ***** (end) Playback Functions ***** //
 
         // ***** Recording Functions ***** //
         function createVideoButton( index ){
-          var playbackBtn = $(document.createElement("button")); 
+          var playbackBtn = $(document.createElement("button"));
           playbackBtn.prop('value', index).html(index);
 
           videoActions.append(playbackBtn);
@@ -176,7 +176,7 @@
         function recordEvents( recordingCurrently ){
           if (!recordingCurrently){
             recording = true;
-            
+
 
             newVideo = new Video(canvas.val(), Date.now());
             startTime = newVideo.startTime;
@@ -184,7 +184,7 @@
             // Get initial state of text box and store
             console.log(newVideo);
             // start recording
-            
+
             canvas.prop('disabled', false);
             canvas.focus();
             switchButtonStates(recording);
@@ -201,14 +201,14 @@
             // Save
             canvas.prop('disabled', true);
             storeStartState(newVideo);
-          } 
+          }
         }
 
         function switchButtonStates( recordingCurrently ){
           // takes
           if (!recordingCurrently){ // switches off end button
             endBtn.attr('disabled', true);
-            startBtn.attr('disabled', false); 
+            startBtn.attr('disabled', false);
           } else { // switches off start button
             startBtn.attr('disabled', true);
             endBtn.attr('disabled', false);
@@ -231,14 +231,14 @@
           stopRecordingEvents();
           changeStatus('Stopped');
         });
-        
+
         $('#canvas').on('keypress', function(evt){
           if (recording){
             // Every Keypress I want to know some information
             // a.) What key was pressed
             // b.) Were any modifier keys pressed?
             // c.) todo: Where exactly am I in the canvas (tricky) How the fuck? We know for sure how many columns there are
-            // d.) At what point in time 
+            // d.) At what point in time
 
             var cols = canvas.cols;
 
@@ -261,13 +261,13 @@
             } else {
               newVideo.events[eventIndex] = [evtObj];
             }
-            
+
           }
         });
 
         $('#video').on('keypress', function(){
           console.log('registering cpu generated event');
-        })
+        });
 
         videoActions.on( "click", "button", function() {
           playVideo($(this).val());

@@ -1,16 +1,44 @@
 .recording-actions {
     position: relative;
-    padding: .2em;
     float: left;
-    width: 200px;
-    background: $graySlightBlue;
-    border-radius: 10px;
+    height: 400px;
+
+    .action-wrapper {
+        padding: .5em;
+        width: 250px;
+        margin: 0 auto;
+        border-radius: 3px;
+        text-align: center;
+        background: $graySlightBlue;
+        transition: transform 1.0s;
+        transform-style: preserve-3d;
+    }
+
+    .progress {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 16px;
+        -webkit-transform: rotateX(-90deg);
+        transform: rotateX(-90deg);
+        -webkit-transform-origin: 50% 0%;
+        transform-origin: 50% 0%;
+        background: $deepGrayBlue;
+        transition: all .5s;
+    }
+
+    &[data-phase=started] {
+        perspective: 900px;
+        background: transparent;
+    }
+
+    &[data-phase=started] .action-wrapper {
+        transform: rotateX(45deg);
+    }
+
 }
-.action-wrapper {
-    width: 100px;
-    margin: 0 auto;
-    text-align: center;
-}
+
 
 .icon-circle {
     position: absolute;
@@ -27,6 +55,7 @@
 .record-btn,
 .play-btn,
 .stop-btn{
+    cursor: pointer;
     font-size: 1.5em;
     color: $purpleAction;
 }

@@ -2,6 +2,7 @@ var FCConstants = require('../constants/fc-constants');
 var FCDispatcher = require('../dispatcher/fc-dispatcher');
 
 var FCActions = {
+
     /**
      * Register a reference to the audio object
      * @param {object} audio
@@ -48,6 +49,13 @@ var FCActions = {
     startRecordingAudio: function(){
         FCDispatcher.handleViewAction({
             actionType: FCConstants.START_RECORDING_AUDIO
+        });
+    },
+
+
+    startMainPhaseRecording: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.MAIN_PHASE_RECORDING
         });
     },
 

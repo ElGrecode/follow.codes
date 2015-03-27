@@ -93,7 +93,6 @@ var Visualizer = React.createClass({
      * Create a brief visualization of our in progress audio recording
      */
     _createAudioVisualizer: function(){
-        console.log('creating audio visualizer.....')
         var audio = AudioStore.getAudio();
         analyserNode = audio.audioContext.createAnalyser();
         analyserNode.fftSize = 2048;

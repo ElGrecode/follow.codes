@@ -28,7 +28,7 @@ _video = {};
  * @return {object} A converted video object
  */
 function _processEvents( video ){
-    console.log('processing');
+    console.log('processing video events');
     var videoEvents = {};
 
     // *Takes events in eventQueue and creates a playable video

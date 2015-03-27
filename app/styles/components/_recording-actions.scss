@@ -1,9 +1,3 @@
-#soundy {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 .recording-actions {
     position: absolute;
     bottom: 0;
@@ -41,7 +35,13 @@
     }
 
     &[data-phase=started] .action-wrapper {
+        -webkit-transform: rotateX(75deg);
         transform: rotateX(75deg);
+    }
+
+    &[data-phase=stopped] .action-wrapper {
+        -webkit-transform: rotateX(0deg);
+        transform: rotateX(0deg);
     }
 
 }

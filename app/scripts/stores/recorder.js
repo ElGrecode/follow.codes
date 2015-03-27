@@ -116,6 +116,7 @@ function stopRecording(){
         _recorder.stop();
         _recorder.getBuffers(exportBuffers);
         _recorder.isRecording = false;
+        _recorder.phase = "stopped";
     }
 }
 

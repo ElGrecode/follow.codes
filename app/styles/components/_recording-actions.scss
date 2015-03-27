@@ -1,7 +1,8 @@
 .recording-actions {
-    position: relative;
-    float: left;
-    height: 400px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 
     .action-wrapper {
         padding: .5em;
@@ -34,7 +35,7 @@
     }
 
     &[data-phase=started] .action-wrapper {
-        transform: rotateX(45deg);
+        transform: rotateX(75deg);
     }
 
 }

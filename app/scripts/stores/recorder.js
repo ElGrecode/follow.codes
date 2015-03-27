@@ -5,6 +5,7 @@
 // --- Dependencies --- //
 var _ = require('lodash');
 var EventEmitter = require('events').EventEmitter;
+var FCActions = require('../actions/fc-actions');
 var FCConstants = require('../constants/fc-constants');
 var FCDispatcher = require('../dispatcher/fc-dispatcher');
 
@@ -63,7 +64,8 @@ function exportBuffers( buffers ) {
 function doneEncoding( blob ) {
     console.log(_recorder);
     console.log(blob);
-    _recorder.setupDownload( blob, "Audio" + ((_recorder.recorderIndex<10)?"0":"") + _recorder.recorderIndex + ".wav" );
+    var audioPlaybackSrc = _recorder.setupDownload( blob, "Audio" + ((_recorder.recorderIndex<10)?"0":"") + _recorder.recorderIndex + ".wav" );
+    FCActions.registerAudioFile(audioPlaybackSrc);
     _recorder.recorderIndex++;
 }
 

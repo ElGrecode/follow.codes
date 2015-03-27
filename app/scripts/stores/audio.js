@@ -21,6 +21,10 @@ function registerAudio( audio ){
     _audio = audio;
 }
 
+function registerAudioFile( audioFile ){
+    _audio.audioFile = audioFile;
+}
+
 // --- Public Store Methods --- //
 var CHANGE_EVENT = 'change';
 
@@ -57,6 +61,11 @@ var AudioStore = _.extend(EventEmitter.prototype, {
         switch(action.actionType) {
             case FCConstants.REGISTER_AUDIO:
                 registerAudio(audio);
+                AudioStore.emitChange();
+                break;
+
+            case FCConstants.REGISTER_AUDIO_FILE:
+                registerAudioFile(action.audioFile);
                 AudioStore.emitChange();
                 break;
 

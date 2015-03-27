@@ -30,6 +30,7 @@ var StopRecordingBtn = React.createClass({
     handleClick: function(){
         FCActions.stopRecordingVideo();
         FCActions.stopRecordingAudio();
+        //FCActions.createAudioPlayback();
         //FCActions.createVideoFormat();
     },
 

@@ -19,9 +19,14 @@ function Video( startTime ){
 }
 
 var FollowApp = React.createClass({
+    _getAudio: function(){
+        return AudioStore.getAudio();
+    },
+
     getInitialState: function(){
         return {
             video: {},
+            audio: {},
             videoEvents: {},
             eventQueue: {},
             editor: {},
@@ -31,6 +36,16 @@ var FollowApp = React.createClass({
     registerEditor: function( editor ){
         this.state.editor = editor;
     },
+
+    componentWillMount: function() {
+        AudioStore.addChangeListener(this._onChange);
+    },
+
+    _onChange: function() {
+        console.log('setting audio state');
+        this.setState({audio: this._getAudio()});
+    },
+
     // todo: determine where replay video goes (does it live on element?)
     replayVideo: function(){
         console.log('playing')
@@ -74,6 +89,9 @@ var FollowApp = React.createClass({
             <div>
                 {AsyncCodePlayground({updateEditor: this.updateEditor, registerEditorState: this.registerEditor})}
                 <RecordingActions />
+                <audio id="soundy" src={this.state.audio.audioFile} controls>
+                    Your browser does not support the <code>audio</code> element.
+                </audio>
             </div>
         );
     }

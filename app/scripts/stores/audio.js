@@ -19,10 +19,17 @@ var _audio = {};
  */
 function registerAudio( audio ){
     _audio = audio;
+    _audio.isPlaying = false;
+    console.log('the current audio->', _audio);
 }
 
 function registerAudioFile( audioFile ){
     _audio.audioFile = audioFile;
+}
+
+function playbackAudio(){
+    console.log('playing audio');
+    _audio.isPlaying = true;
 }
 
 // --- Public Store Methods --- //
@@ -49,6 +56,10 @@ var AudioStore = _.extend(EventEmitter.prototype, {
         this.removeListener(CHANGE_EVENT, callback);
     },
 
+    /**
+     * Returns the current audio state
+     * @returns {object} _audio
+     */
     getAudio: function(){
         return _audio;
     },
@@ -66,6 +77,11 @@ var AudioStore = _.extend(EventEmitter.prototype, {
 
             case FCConstants.REGISTER_AUDIO_FILE:
                 registerAudioFile(action.audioFile);
+                AudioStore.emitChange();
+                break;
+
+            case FCConstants.PLAYBACK_AUDIO:
+                playbackAudio();
                 AudioStore.emitChange();
                 break;
 

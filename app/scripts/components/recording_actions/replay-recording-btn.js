@@ -1,37 +1,55 @@
 /** @jsx React.DOM */
 var React = require('react');
+var FCActions = require('../../actions/fc-actions');
 
 // Stores
-var RecorderStore = require('../../stores/recorder');
+var AudioStore = require('../../stores/audio');
+var VideoStore = require('../../stores/video');
 
 // Access state methods
-function _getRecorder(){
-    return { recorder: RecorderStore.getRecorder() };
+function _getAudio(){
+    return AudioStore.getAudio();
+}
+function _getVideo(){
+    return VideoStore.getVideo();
 }
 
 var ReplayBtn = React.createClass({
     //todo: Consider making this a mixin
     getInitialState:function(){
-        return _getRecorder();
+        return {
+            audio:_getAudio(),
+            video: _getVideo()
+        };
     },
 
-    componentWillMount: function() {
-        RecorderStore.addChangeListener(this._onChange);
+    /**
+     * Add store change listeners
+     */
+    componentWillMount: function(){
+        AudioStore.addChangeListener(this._audioChange);
+        VideoStore.addChangeListener(this._videoChange);
     },
 
-    _onChange: function() {
-        this.setState(_getRecorder());
+    _audioChange: function(){
+        this.setState({audio: _getAudio()});
+    },
+
+    _videoChange: function(){
+        this.setState({video: _getVideo()})
     },
 
     /**
      * Handles click on Replay Recording Btn
      */
     handleClick: function(){
-        // playback
+        FCActions.playbackAudio();
+        FCActions.playbackVideo();
     },
 
     render: function(){
-        var display = this.state.recorder.isRecording ? {display: 'none'} : {display: 'inline-block'};
+        // If we have a video, display the playback button
+        var display = this.state.video ? {display: 'inline-block'} : {display: 'none'};
         return (
             <span onClick={this.handleClick} className="play-btn step size-16" style={display}>
                 <i id="icon-line-play" className="icon-line-play"></i>

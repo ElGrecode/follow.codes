@@ -13,6 +13,7 @@ function Video( startTime ){
     //this.startState = startState;
     this.startTime = startTime;
     this.isRecording = false;
+    this.isPlaying = false;
     this.recordedEvents = {};
 
     return this;
@@ -113,10 +114,21 @@ function recordEvent( evt ){
     }
 }
 
+/**
+ * Set the playback state of the video to true
+ */
+function playbackVideo(){
+    if (!_video.isRecording){
+        console.log('changing isPlaying property in _video');
+        _video.isPlaying = true;
+    }
+}
+
 // --- Public Store Methods --- //
 var CHANGE_EVENT = 'change';
 
 var VideoStore = _.extend(EventEmitter.prototype, {
+    // Change emitting events
     emitChange: function() {
         this.emit(CHANGE_EVENT);
     },
@@ -133,6 +145,14 @@ var VideoStore = _.extend(EventEmitter.prototype, {
      */
     removeChangeListener: function(callback) {
         this.removeListener(CHANGE_EVENT, callback);
+    },
+
+    /**
+     * Returns the current video state
+     * @returns {object} _video
+     */
+    getVideo: function(){
+        return _video;
     },
 
     dispatcherIndex: FCDispatcher.register(function(payload) {
@@ -152,11 +172,10 @@ var VideoStore = _.extend(EventEmitter.prototype, {
                 stopRecording();
                 VideoStore.emitChange();
                 break;
-
-            //case FCConstants.START_RECORDING_AUDIO:
-            //    registerAudio(audio);
-            //    VideoStore.emitChange();
-            //    break;
+            case FCConstants.PLAYBACK_VIDEO:
+                playbackVideo();
+                VideoStore.emitChange();
+                break;
 
             // add more cases for other actionTypes
         }

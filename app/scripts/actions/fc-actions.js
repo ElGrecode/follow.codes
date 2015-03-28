@@ -99,11 +99,20 @@ var FCActions = {
     },
 
     /**
-     * Creates a queuable audio for consumption by HTML5 audio tag
+     * Play back the audio file
      */
-    createAudioPlayback: function(){
+    playbackAudio: function(){
         FCDispatcher.handleViewAction({
-            actionType: FCConstants.CREATE_AUDIO_PLAYBACK
+            actionType: FCConstants.PLAYBACK_AUDIO
+        });
+    },
+
+    /**
+     * Play back the video file
+     */
+    playbackVideo: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.PLAYBACK_VIDEO
         });
     }
 

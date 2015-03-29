@@ -2,40 +2,25 @@
 var React = require('react');
 var FCActions = require('../../actions/fc-actions');
 
-// Stores
-var RecorderStore = require('../../stores/recorder');
-
-// Access state methods
-function _getRecorder(){
-    return { recorder: RecorderStore.getRecorder() };
-}
-
-
 var StartRecordingBtn = React.createClass({
-    getInitialState:function(){
-        return _getRecorder();
-    },
-
-    componentWillMount: function() {
-        RecorderStore.addChangeListener(this._onChange);
-    },
-
-    _onChange: function() {
-        this.setState(_getRecorder());
+    propTypes: {
+        recordingIsAllowable: React.PropTypes.bool,
+        isRecording: React.PropTypes.bool
     },
 
     /**
      * Handles click on StartRecordingBtn
      */
-    handleClick: function(){
+    startRecording: function(){
         FCActions.startRecordingVideo();
         FCActions.startRecordingAudio();
     },
 
     render: function(){
-        var display = this.state.recorder.isRecording || !this.state.recorder.isAllowable ? {display: 'none'} : {display: 'inline-block'};
+        // If recording is allowable for this browser and we are not currently recording
+        var display = this.props.recordingIsAllowable && !this.props.isRecording ? {display: 'inline-block'} : {display: 'none'};
         return (
-            <span onClick={this.handleClick} className="record-btn step size-16" style={display}>
+            <span onClick={this.startRecording} className="record-btn step size-16" style={display}>
                 <i id="icon-line-radio-microphone" className="icon-line-radio-microphone"></i>
             </span>
         )

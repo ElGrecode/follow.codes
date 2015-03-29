@@ -86,7 +86,7 @@ function startRecording(){
 }
 
 /**
- * Stops the video recording
+ * Stops the video recording and stores a playable video
  * Mutable function that changes the state of _video
  */
 function stopRecording(){
@@ -94,6 +94,7 @@ function stopRecording(){
         // If there is no video and we are not recording currently, we should create a video
         _video.isRecording = false;
         _video.playableVideo = _processEvents(_video);
+        _video.isReady = true;
     }
 }
 

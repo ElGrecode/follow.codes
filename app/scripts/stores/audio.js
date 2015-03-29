@@ -17,14 +17,19 @@ var _audio = {};
  * Mutable function registers a reference to a previously created audio object
  * @param {object} audio
  */
-function registerAudio( audio ){
+function _registerAudio( audio ){
     _audio = audio;
     _audio.isPlaying = false;
     console.log('the current audio->', _audio);
 }
 
-function registerAudioFile( audioFile ){
+/**
+ * Mutable function registers the url path of the audio blob in local storage
+ * @param audioFile
+ */
+function _registerAudioFile( audioFile ){
     _audio.audioFile = audioFile;
+    _audio.isReady = true;
 }
 
 function playbackAudio(){
@@ -71,12 +76,12 @@ var AudioStore = _.extend(EventEmitter.prototype, {
 
         switch(action.actionType) {
             case FCConstants.REGISTER_AUDIO:
-                registerAudio(audio);
+                _registerAudio(audio);
                 AudioStore.emitChange();
                 break;
 
             case FCConstants.REGISTER_AUDIO_FILE:
-                registerAudioFile(action.audioFile);
+                _registerAudioFile(action.audioFile);
                 AudioStore.emitChange();
                 break;
 

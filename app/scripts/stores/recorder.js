@@ -145,10 +145,6 @@ var RecorderStore = _.extend(EventEmitter.prototype, {
         return _recorder;
     },
 
-    getPhaseStatus: function(){
-        return _recorder.phase;
-    },
-
     dispatcherIndex: FCDispatcher.register(function(payload) {
         var action = payload.action;
         var recorder = action.recorder || '';

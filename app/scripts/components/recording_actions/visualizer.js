@@ -26,12 +26,8 @@ function _isMainPhase( currentPhase ){
 
 var Visualizer = React.createClass({
 
-    componentWillMount: function() {
-        RecorderStore.addChangeListener(this._onChange);
-    },
-
-    _onChange: function(){
-        currentPhase = RecorderStore.getPhaseStatus();
+    _handlePhase: function(){
+        currentPhase = this.props.phase;
 
         // Handle each phase
         if ( _isBeginningPhase( currentPhase ) ){
@@ -93,7 +89,7 @@ var Visualizer = React.createClass({
      * Create a brief visualization of our in progress audio recording
      */
     _createAudioVisualizer: function(){
-        var audio = AudioStore.getAudio();
+        var audio = this.props.audio;
         analyserNode = audio.audioContext.createAnalyser();
         analyserNode.fftSize = 2048;
         audio.sound.connect( analyserNode );
@@ -106,6 +102,7 @@ var Visualizer = React.createClass({
     },
 
     render: function(){
+        this._handlePhase();
         return (
             <canvas id="analyser" ref="canvas" className="progress" width="500" height="20"></canvas>
         )

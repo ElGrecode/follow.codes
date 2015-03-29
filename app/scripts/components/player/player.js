@@ -64,11 +64,9 @@ var Player = React.createClass({
 
         // Case 1
         if (this.state.video.isReady && this.state.audio.isReady &&
-            isPlaying === false && this.state.audio.isPlaying){
-            console.log('updating');
+        isPlaying === false && this.state.audio.isPlaying){
             isPlaying = true;
-            this._replayVideo();
-            return false;
+            return true;
         }
 
         // Case 2
@@ -77,6 +75,24 @@ var Player = React.createClass({
         }
 
         return false;
+    },
+
+    /**
+     * [Lifecycle method] invoked once immediately after re-rendering occurs
+     * Starts audio and video playback
+     */
+    componentDidUpdate: function(){
+        // Clear editor or todo: potentially later fill with initial value
+        this.props.editor.setValue("");
+        this._replayVideo();
+
+        // start playing back of audio
+        var audioTag =  this.refs.audioPlayer.getDOMNode();
+        // todo: figure out why there is a lag of a second
+        setTimeout(function(){
+            console.log('updating component and playing audio');
+            audioTag.play();
+        }, 1000)
     },
 
     /**
@@ -153,22 +169,12 @@ var Player = React.createClass({
         }, this.state.video.lastEventTime + 1000);
     },
 
-    componentDidUpdate: function(prevProps, prevState){
-        // start playing back of audio
-        var audioTag =  this.refs.audioPlayer.getDOMNode();
-        // looks like a lag of 700 or so ms between audio and video playback
-        // todo: figure out why
-        setTimeout(function(){
-            audioTag.play();
-        }, 1000)
-    },
-
     render: function(){
         // todo: make sure that we are getting access to the audio file
         //console.log('rerendering -> here is the audiFile->', this.props.audioFile);
         return (
             <div className='player'>
-                <audio id="soundy" ref="audioPlayer" controls>
+                <audio id="soundy" ref="audioPlayer" src={this.state.audio.audioFile} controls>
                     Your browser does not support the <code>audio</code> element.
                 </audio>
             </div>

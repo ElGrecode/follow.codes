@@ -29,7 +29,10 @@ var FollowApp = React.createClass({
             recording: false
         };
     },
-    //todo: Antipattern of manipulating the state like this
+    /**
+     * Register the editor locally so children can reference it
+     * @param editor
+     */
     registerEditor: function( editor ){
         this.setState({editor: editor});
     },

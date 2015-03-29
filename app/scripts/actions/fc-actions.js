@@ -114,7 +114,13 @@ var FCActions = {
         FCDispatcher.handleViewAction({
             actionType: FCConstants.PLAYBACK_VIDEO
         });
-    }
+    },
+
+    //pauseAudio: function(){
+    //    FCDispatcher.handleViewAction({
+    //        actionType: FCConstants.PAUSE_AUDIO
+    //    });
+    //}
 
     //
     ///**

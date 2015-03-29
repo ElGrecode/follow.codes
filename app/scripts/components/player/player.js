@@ -66,6 +66,7 @@ var Player = React.createClass({
         if (this.state.video.isReady && this.state.audio.isReady &&
         isPlaying === false && this.state.audio.isPlaying){
             isPlaying = true;
+            this._createAndStartPlayer();
             return true;
         }
 
@@ -82,17 +83,7 @@ var Player = React.createClass({
      * Starts audio and video playback
      */
     componentDidUpdate: function(){
-        // Clear editor or todo: potentially later fill with initial value
-        this.props.editor.setValue("");
-        this._replayVideo();
 
-        // start playing back of audio
-        var audioTag =  this.refs.audioPlayer.getDOMNode();
-        // todo: figure out why there is a lag of a second
-        setTimeout(function(){
-            console.log('updating component and playing audio');
-            audioTag.play();
-        }, 1000)
     },
 
     /**
@@ -125,7 +116,37 @@ var Player = React.createClass({
      * @private
      */
     _changePlayTime: function(evt){
-        console.log('changing play time');
+        console.log('changing play time', evt.target.currentTime);
+    },
+
+
+    /**
+     * Creates and starts the screencast A/V player
+     * @private
+     */
+    _createAndStartPlayer: function(){
+        // Clear editor or todo: potentially later fill with initial value
+        // Initialize
+        this.props.editor.setValue("");
+        var audioTag =  this.refs.audioPlayer.getDOMNode();
+
+        // Set up event listener on audio, it will keep track of time
+        audioTag.addEventListener("timeupdate", this._timeUpdate, false);
+
+        this._replayVideo();
+        // todo: figure out why there is a lag of a second
+        setTimeout(function(){
+            console.log('updating component and playing audio');
+            audioTag.play();
+        }, 1000)
+    },
+
+    /**
+     *
+     * @private
+     */
+    _timeUpdate: function( evt ){
+        this.setState({playbackTime: evt.target.currentTime})
     },
 
     /**

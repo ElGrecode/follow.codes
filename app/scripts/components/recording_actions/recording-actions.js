@@ -55,7 +55,6 @@ var RecordingActions = React.createClass({
     },
 
     render: function(){
-        console.log('audio', this.state.audio);
         return (
             <div className='recording-actions' data-phase={this.state.recorder.phase}>
                 <div className="action-wrapper">

@@ -117,6 +117,17 @@ var FCActions = {
     },
 
     /**
+     * Registers the start time of the video
+     * @param startTime - The moment the video starts
+     */
+    registerPlaybackStartTime: function( startTime ){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.REGISTER_PLAYBACK_START_TIME,
+            playbackStartTime: startTime
+        })
+    },
+
+    /**
      * Registers the interval id of the event loop running for key events
      * @param intervalId
      */
@@ -127,15 +138,43 @@ var FCActions = {
         });
     },
 
+    /**
+     * Pause the playing audio
+     */
     pauseAudio: function(){
         FCDispatcher.handleViewAction({
             actionType: FCConstants.PAUSE_AUDIO
         });
     },
 
+    /**
+     * Pause the playing video
+     */
     pauseVideo: function(){
         FCDispatcher.handleViewAction({
             actionType: FCConstants.PAUSE_VIDEO
+        });
+    },
+
+    /**
+     * Registers the current video text for synchronization purposes
+     * @param videoText
+     */
+    capturePausedVideoState: function( videoText ){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.PAUSED_VIDEO_STATE,
+            videoText: videoText
+        });
+    },
+
+    /**
+     * Registers the current video time when paused for synchronizaiton purposes
+     * @param currentVideoTime
+     */
+    capturePausedVideoTime: function( currentVideoTime ){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.PAUSED_VIDEO_TIME,
+            currentVideoTime: currentVideoTime
         });
     }
 

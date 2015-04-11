@@ -1,23 +1,11 @@
 /** @jsx React.DOM */
 
-// App components safe on server side
-
+// This file contains only app components that are safe to render on server side
 var React = require('react/addons');
-var AudioStore = require('../stores/audio');
-var RecorderStore = require('../stores/recorder');
-var VideoStore = require('../stores/video');
 
 // Top Level Components
 var RecordingActions = require('./recording_actions/recording-actions');
 var Player = require('./player/player');
-
-function Video( startTime ){
-    //this.startState = startState;
-    this.startTime = startTime;
-    this.events = {};
-
-    return this;
-}
 
 var FollowApp = React.createClass({
     getInitialState: function(){
@@ -97,8 +85,3 @@ var FollowApp = React.createClass({
 });
 /* Module.exports instead of normal dom mounting */
 module.exports.FollowApp = FollowApp;
-
-// <EndRecording />
-//<audio id="soundy" ref="audioPlayer" src={this.state.audio.audioFile} controls>
-//    Your browser does not support the <code>audio</code> element.
-//</audio>

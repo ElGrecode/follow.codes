@@ -56,6 +56,7 @@ var Player = React.createClass({
 
     /**
      * [Lifecycle method] invoked once immediately before the initial rendering occurs
+     * NOTE: Where the action happens
      * Return value determines whether component should render
      */
     shouldComponentUpdate: function(){
@@ -65,7 +66,7 @@ var Player = React.createClass({
         // 2. A change in audioIsPlaying has occurred
         // 3. A change in videoIsPlaying has occurred
 
-        // Case 1
+        // Case 1.)
         if (this.state.video.isReady && this.state.audio.isReady &&
         audioIsPlaying === false && this.state.audio.isPlaying){
             audioIsPlaying = true;
@@ -73,28 +74,31 @@ var Player = React.createClass({
             return true;
         }
 
-        // Case 2a Audio - old state(isPlaying) / new state(isNotPlaying)
+        //TODO: @elGrecode combine check for audio and video. Two is (maybe) negligible and redundant
+        // Case 2a.) Audio - old state(isPlaying) / new state(isNotPlaying)
         if (audioIsPlaying === true && this.state.audio.isPlaying === false){
             console.log('pausing audio - SWITCHING STATE');
             audioTag.pause();
             audioIsPlaying = false;
             return true;
-        // Case 2b Audio - oldState(isNotPlaying) / newState(isNotPlaying)
+        // Case 2b.) Audio - oldState(isNotPlaying) / newState(isNotPlaying)
         } else if (audioIsPlaying === false && this.state.audio.isPlaying === true){
             audioTag.play();
             audioIsPlaying = true;
             return true;
         }
 
-        // Case 3a Video - old state(isPlaying) / new state(isNotPlaying)
+        // Case 3a.) Video - old state(isPlaying) / new state(isNotPlaying)
         if (videoIsPlaying === true && this.state.video.isPlaying === false){
-            console.log('pausing video - SWITCHING STATE');
             this._clearPlaybackInterval(this.state.video.playbackIntervalId);
+            // TODO: Freeze editor
+            this._capturePausedVideoPlaybackTime(this.state.video.playbackStartTime - Date.now());
+            this._capturePausedVideoState(this.props.editor.getValue());
             videoIsPlaying = false;
             return true;
-        // Case 3b Video - oldState(isNotPlaying) / newState(isNotPlaying)
+        // Case 3b.) Video - oldState(isNotPlaying) / newState(isNotPlaying)
         } else if (videoIsPlaying === false && this.state.video.isPlaying === true){
-            // todo: figure out a way to restart the video
+            this._continuePlayingVideo();
             videoIsPlaying = true;
             return true;
         }
@@ -106,9 +110,9 @@ var Player = React.createClass({
      * [Lifecycle method] invoked once immediately after re-rendering occurs
      * Starts audio and video playback
      */
-    componentDidUpdate: function(){
-
-    },
+    //componentDidUpdate: function(){
+    //
+    //},
 
     //*** Private methods ***//
     /**
@@ -118,7 +122,7 @@ var Player = React.createClass({
     _playerChange: function() {
         this.setState(_getPlayer());
     },
-    //
+
     /**
     * Sets local audio state
     * @private
@@ -126,6 +130,7 @@ var Player = React.createClass({
     _audioChange: function(){
         this.setState( _getAudio());
     },
+
     /**
      * Sets local video state
      * @private
@@ -133,6 +138,7 @@ var Player = React.createClass({
     _videoChange: function(){
         this.setState( _getVideo());
     },
+
     /**
      * Changes the time state of audio playback
      * @param evt - playback audio event on time update
@@ -142,7 +148,6 @@ var Player = React.createClass({
         console.log('audio player component', evt.target);
         console.log('audio total duration', evt.target.duration);
     },
-
 
     /**
      * Creates and starts the screencast A/V player
@@ -166,7 +171,8 @@ var Player = React.createClass({
     },
 
     /**
-     *
+     * Callback updating the time of the audio
+     * TODO: send this up to the audio object store
      * @private
      */
     _timeUpdate: function( evt ){
@@ -177,11 +183,7 @@ var Player = React.createClass({
      * Calculates the replaying of our videoEvent log
      * @private
      */
-        // todo: needs video
-        // todo: needs editor to play events
     _replayVideo: function(){
-        console.log('editor hopefully????', this.props.editor);
-
         var videoEvents = this.state.video.playableVideo;
         var TICKINCREMENT = 1000;
         var document = this.props.editor.getSession().getDocument();
@@ -189,6 +191,7 @@ var Player = React.createClass({
         console.log('videoEvents', videoEvents);
 
         var tick = 0;
+        var startTime = Date.now();
         var playbackIntervalId = setInterval(function(){ // Every tick interval, set up queue events to fire
 
             console.log('tick: ' + tick);
@@ -206,18 +209,66 @@ var Player = React.createClass({
 
             tick++;
         }, TICKINCREMENT);
-        // Register the playbackIntervalId globally
+        // Register the playbackStartTime and playbackIntervalId globally
+        FCActions.registerPlaybackStartTime(startTime);
         FCActions.registerPlaybackIntervalId(playbackIntervalId);
 
         setTimeout(function(){
             // clear playbackInterval after finished
-            console.log('Video Done');
             FCActions.pauseVideo();
         }, this.state.video.lastEventTime + 1000);
     },
 
+    /**
+     * Calculates the replaying of our videoEvent log
+     * @private
+     */
+    _continuePlayingVideo: function(){
+        // TODO:NEXT @ElGrecode
+        // What pieces of information do we need to replay this
+        // a.) video paused time
+        // b.) video paused text
+        // c.) videoEvents
+        // Others:
+        // normalize new playing time
+        // ability to start playing video at this time
+        // NOTE*** We can think of current implementation of _replayVideo as basically playing a video from time 0 with empty text
+        // _continuePlaying video is essentially playing from time 'x' with text 'y'
+    },
+
+    // TODO:NEXT @ElGrecode
+    //_playVideoFromTime: function(video, videoStartTime, videoEvents, editorCanvas){
+    //
+    //},
+
+    /**
+     * Clears a given event loop interval
+     * @param intervalId
+     * @private
+     * TODO: @elGrecode pausing and interval clearing is imperfect currently- we prevent next tick from occurring, but not the rest of the current useNextTick
+     * TODO: The result ends up being a few more additional characters are typed after the video is "truly" paused
+     * TODO: We almost want to freeze the editor
+     */
     _clearPlaybackInterval: function( intervalId ){
         clearInterval(intervalId);
+    },
+
+    /**
+     * Captures the current text of the paused video
+     * @param videoText
+     * @private
+     */
+    _capturePausedVideoState: function( videoText ){
+        FCActions.capturePausedVideoState(videoText);
+    },
+
+    /**
+     * Captures the current time of the paused video
+     * @param currentVideoTime
+     * @private
+     */
+    _capturePausedVideoPlaybackTime: function( currentVideoTime ){
+        FCActions.capturePausedVideoTime(currentVideoTime);
     },
 
     render: function(){

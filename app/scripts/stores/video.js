@@ -16,7 +16,9 @@ function Video( startTime ){
     this.isPlaying = false;
     this.recordedEvents = {};
     this.playbackIntervalId = undefined;
-
+    this.playbackStartTime = undefined;
+    this.pausedVideoStateText = undefined;
+    this.pausedVideoTime = undefined;
     return this;
 }
 
@@ -96,6 +98,15 @@ function _registerIntervalId( playbackIntervalId ){
 }
 
 /**
+ * Mutable function registers the start time of when the video begins
+ * @param playbackStartTime
+ * @private
+ */
+function _registerPlaybackStartTime( playbackStartTime ){
+    _video.playbackStartTime = playbackStartTime;
+}
+
+/**
  * Stops the video recording and stores a playable video
  * Mutable function that changes the state of _video
  */
@@ -139,6 +150,22 @@ function _pauseVideo(){
         console.log('changing isPlaying property in _video to false');
         _video.isPlaying = false;
     }
+}
+
+/**
+ * Mutable function registering the video state after a pause
+ * @private
+ */
+function _capturePausedVideoState( videoText ){
+    _video.pausedVideoStateText = videoText;
+}
+
+/**
+ * Mutable function registering the video time after a pause
+ * @private
+ */
+function _capturePausedVideoTime( videoTime ){
+    _video.pausedVideoTime = videoTime;
 }
 
 // --- Public Store Methods --- //
@@ -197,8 +224,20 @@ var VideoStore = _.extend(EventEmitter.prototype, {
                 _registerIntervalId(payload.action.playbackIntervalId);
                 VideoStore.emitChange();
                 break;
+            case FCConstants.REGISTER_PLAYBACK_START_TIME:
+                _registerPlaybackStartTime(payload.action.playbackStartTime);
+                VideoStore.emitChange();
+                break;
             case FCConstants.PAUSE_VIDEO:
                 _pauseVideo();
+                VideoStore.emitChange();
+                break;
+            case FCConstants.PAUSED_VIDEO_STATE:
+                _capturePausedVideoState(payload.action.videoText);
+                VideoStore.emitChange();
+                break;
+            case FCConstants.PAUSED_VIDEO_TIME:
+                _capturePausedVideoTime(payload.action.currentVideoTime);
                 VideoStore.emitChange();
                 break;
 

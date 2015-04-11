@@ -1,10 +1,11 @@
 module.exports = {
     // Map a list of actions
-    //todo: Register these actions not as view actions (look into)
+    //todo: possibly register these actions not as view actions (look into)
     REGISTER_VAI : 'REGISTER_VAI',
     REGISTER_AUDIO : 'REGISTER_AUDIO',
     REGISTER_RECORDER : 'REGISTER_RECORDER',
     REGISTER_PLAYBACK_INTERVAL_ID: 'REGISTER_PLAYBACK_INTERVAL_ID',
+    REGISTER_PLAYBACK_START_TIME : 'REGISTER_PLAYBACK_START_TIME',
     RECORDER_NOT_ALLOWABLE : 'RECORDER_NOT_ALLOWABLE',
 
     START_RECORDING_VIDEO : 'START_RECORDING_VIDEO',
@@ -23,7 +24,9 @@ module.exports = {
     // Playback actions
     //PLAY_AUDIO : 'PAUSE_AUDIO'
     PAUSE_AUDIO : 'PAUSE_AUDIO',
-    PAUSE_VIDEO : 'PAUSE_VIDEO'
+    PAUSE_VIDEO : 'PAUSE_VIDEO',
+    PAUSED_VIDEO_STATE : 'PAUSED_VIDEO_STATE',
+    PAUSED_VIDEO_TIME : 'PAUSED_VIDEO_TIME'
     // PLAY_SCREENCAST
     // PAUSE_SCREENCAST
     // SAVE_SCREENCAST?

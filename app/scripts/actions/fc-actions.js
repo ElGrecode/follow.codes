@@ -116,11 +116,28 @@ var FCActions = {
         });
     },
 
-    //pauseAudio: function(){
-    //    FCDispatcher.handleViewAction({
-    //        actionType: FCConstants.PAUSE_AUDIO
-    //    });
-    //}
+    /**
+     * Registers the interval id of the event loop running for key events
+     * @param intervalId
+     */
+    registerPlaybackIntervalId: function( playbackIntervalId ){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.REGISTER_PLAYBACK_INTERVAL_ID,
+            playbackIntervalId: playbackIntervalId
+        });
+    },
+
+    pauseAudio: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.PAUSE_AUDIO
+        });
+    },
+
+    pauseVideo: function(){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.PAUSE_VIDEO
+        });
+    }
 
     //
     ///**

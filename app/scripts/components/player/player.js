@@ -22,7 +22,8 @@ function _getVideo(){
 }
 
 // Local cached variables
-var isPlaying = false;
+var audioIsPlaying = false;
+var videoIsPlaying = false;
 
 var Player = React.createClass({
     getInitialState: function(){
@@ -58,20 +59,43 @@ var Player = React.createClass({
      * Return value determines whether component should render
      */
     shouldComponentUpdate: function(){
+        var audioTag = this.refs.audioPlayer.getDOMNode();
         // Only update in these cases
         // 1. Video recording and Audio recording are ready and a play event has been fired (compare old isPlaying to new isPlaying coming through pipeline)
-        // 2. A change in player has occurred
+        // 2. A change in audioIsPlaying has occurred
+        // 3. A change in videoIsPlaying has occurred
 
         // Case 1
         if (this.state.video.isReady && this.state.audio.isReady &&
-        isPlaying === false && this.state.audio.isPlaying){
-            isPlaying = true;
+        audioIsPlaying === false && this.state.audio.isPlaying){
+            audioIsPlaying = true;
             this._createAndStartPlayer();
             return true;
         }
 
-        // Case 2
-        if (false){
+        // Case 2a Audio - old state(isPlaying) / new state(isNotPlaying)
+        if (audioIsPlaying === true && this.state.audio.isPlaying === false){
+            console.log('pausing audio - SWITCHING STATE');
+            audioTag.pause();
+            audioIsPlaying = false;
+            return true;
+        // Case 2b Audio - oldState(isNotPlaying) / newState(isNotPlaying)
+        } else if (audioIsPlaying === false && this.state.audio.isPlaying === true){
+            audioTag.play();
+            audioIsPlaying = true;
+            return true;
+        }
+
+        // Case 3a Video - old state(isPlaying) / new state(isNotPlaying)
+        if (videoIsPlaying === true && this.state.video.isPlaying === false){
+            console.log('pausing video - SWITCHING STATE');
+            this._clearPlaybackInterval(this.state.video.playbackIntervalId);
+            videoIsPlaying = false;
+            return true;
+        // Case 3b Video - oldState(isNotPlaying) / newState(isNotPlaying)
+        } else if (videoIsPlaying === false && this.state.video.isPlaying === true){
+            // todo: figure out a way to restart the video
+            videoIsPlaying = true;
             return true;
         }
 
@@ -86,6 +110,7 @@ var Player = React.createClass({
 
     },
 
+    //*** Private methods ***//
     /**
      * Sets local player state
      * @private
@@ -108,15 +133,14 @@ var Player = React.createClass({
     _videoChange: function(){
         this.setState( _getVideo());
     },
-
-    //*** Private methods ***//
     /**
      * Changes the time state of audio playback
      * @param evt - playback audio event on time update
      * @private
      */
     _changePlayTime: function(evt){
-        console.log('changing play time', evt.target.currentTime);
+        console.log('audio player component', evt.target);
+        console.log('audio total duration', evt.target.duration);
     },
 
 
@@ -165,7 +189,7 @@ var Player = React.createClass({
         console.log('videoEvents', videoEvents);
 
         var tick = 0;
-        var playbackId = setInterval(function(){ // Every tick interval, set up queue events to fire
+        var playbackIntervalId = setInterval(function(){ // Every tick interval, set up queue events to fire
 
             console.log('tick: ' + tick);
             var eventsForTickArr = videoEvents[tick];
@@ -182,12 +206,18 @@ var Player = React.createClass({
 
             tick++;
         }, TICKINCREMENT);
+        // Register the playbackIntervalId globally
+        FCActions.registerPlaybackIntervalId(playbackIntervalId);
 
         setTimeout(function(){
-            // clear playback after finished
+            // clear playbackInterval after finished
             console.log('Video Done');
-            clearInterval(playbackId);
+            FCActions.pauseVideo();
         }, this.state.video.lastEventTime + 1000);
+    },
+
+    _clearPlaybackInterval: function( intervalId ){
+        clearInterval(intervalId);
     },
 
     render: function(){

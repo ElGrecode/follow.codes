@@ -32,9 +32,14 @@ function _registerAudioFile( audioFile ){
     _audio.isReady = true;
 }
 
-function playbackAudio(){
-    console.log('playing audio');
+/**
+ * Mutable functions changing audio's isPlaying state
+ */
+function _playbackAudio(){
     _audio.isPlaying = true;
+}
+function _pauseAudio(){
+    _audio.isPlaying = false;
 }
 
 // --- Public Store Methods --- //
@@ -71,7 +76,6 @@ var AudioStore = _.extend(EventEmitter.prototype, {
 
     dispatcherIndex: FCDispatcher.register(function(payload) {
         var action = payload.action;
-        var text;
         var audio = action.audio || '';
 
         switch(action.actionType) {
@@ -86,7 +90,12 @@ var AudioStore = _.extend(EventEmitter.prototype, {
                 break;
 
             case FCConstants.PLAYBACK_AUDIO:
-                playbackAudio();
+                _playbackAudio();
+                AudioStore.emitChange();
+                break;
+
+            case FCConstants.PAUSE_AUDIO:
+                _pauseAudio();
                 AudioStore.emitChange();
                 break;
 

@@ -15,6 +15,7 @@ function Video( startTime ){
     this.isRecording = false;
     this.isPlaying = false;
     this.recordedEvents = {};
+    this.playbackIntervalId = undefined;
 
     return this;
 }
@@ -86,6 +87,15 @@ function startRecording(){
 }
 
 /**
+ * Mutable function registers the interval id to be able to stop the playback event loop
+ * @param playbackIntervalId
+ * @private
+ */
+function _registerIntervalId( playbackIntervalId ){
+    _video.playbackIntervalId = playbackIntervalId;
+}
+
+/**
  * Stops the video recording and stores a playable video
  * Mutable function that changes the state of _video
  */
@@ -116,12 +126,18 @@ function recordEvent( evt ){
 }
 
 /**
- * Set the playback state of the video to true
+ * Mutable functions changing the playback state of the video to true
  */
-function playbackVideo(){
+function _playbackVideo(){
     if (!_video.isRecording){
         console.log('changing isPlaying property in _video');
         _video.isPlaying = true;
+    }
+}
+function _pauseVideo(){
+    if (!_video.isRecording){
+        console.log('changing isPlaying property in _video to false');
+        _video.isPlaying = false;
     }
 }
 
@@ -174,7 +190,15 @@ var VideoStore = _.extend(EventEmitter.prototype, {
                 VideoStore.emitChange();
                 break;
             case FCConstants.PLAYBACK_VIDEO:
-                playbackVideo();
+                _playbackVideo();
+                VideoStore.emitChange();
+                break;
+            case FCConstants.REGISTER_PLAYBACK_INTERVAL_ID:
+                _registerIntervalId(payload.action.playbackIntervalId);
+                VideoStore.emitChange();
+                break;
+            case FCConstants.PAUSE_VIDEO:
+                _pauseVideo();
                 VideoStore.emitChange();
                 break;
 

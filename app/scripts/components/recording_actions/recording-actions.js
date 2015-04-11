@@ -11,6 +11,7 @@ var RecordingState = require('./recording-state.js');
 var ReplayRecordingBtn = require('./replay-recording-btn.js');
 var StopRecordingBtn = require('./stop-recording-btn');
 var StartRecordingBtn = require('./start-recording-btn');
+var PauseRecordingBtn = require('./pause-recording-btn');
 var Visualizer = require('./visualizer');
 
 // Access state methods
@@ -59,8 +60,9 @@ var RecordingActions = React.createClass({
             <div className='recording-actions' data-phase={this.state.recorder.phase}>
                 <div className="action-wrapper">
                     <RecordingState isRecording={this.state.recorder.isRecording}/>
-                    <ReplayRecordingBtn videoIsReady={this.state.video.isReady} audioIsReady={this.state.audio.isReady}/>
-                    <StartRecordingBtn recordingIsAllowable={this.state.recorder.isAllowable} isRecording={this.state.recorder.isRecording}/>
+                    <ReplayRecordingBtn videoIsReady={this.state.video.isReady} audioIsReady={this.state.audio.isReady} audioIsPlaying={this.state.audio.isPlaying}/>
+                    <StartRecordingBtn recordingIsAllowable={this.state.recorder.isAllowable} isRecording={this.state.recorder.isRecording} audioIsPlaying={this.state.audio.isPlaying}/>
+                    <PauseRecordingBtn audioIsPlaying={this.state.audio.isPlaying}/>
                     <StopRecordingBtn isRecording={this.state.recorder.isRecording}/>
                     <Visualizer audio={this.state.audio} phase={this.state.recorder.phase}/>
                 </div>

@@ -1,6 +1,10 @@
 /** @jsx React.DOM */
 var React = require('react');
 
+//**********
+//** Player Component is semi-tangible component handler of synchronization between audio and video playback
+//**********
+
 // Stores
 var PlayerStore = require('../../stores/player');
 var AudioStore = require('../../stores/audio');
@@ -8,7 +12,7 @@ var VideoStore = require('../../stores/video');
 var FCActions = require('../../actions/fc-actions');
 
 // Components
-// ... add components here
+var _ = require('lodash');
 
 // Store's getter methods
 function _getPlayer(){
@@ -21,7 +25,7 @@ function _getVideo(){
     return { video: VideoStore.getVideo() };
 }
 
-// Local cached variables
+// Local cached variables for comparison
 var audioIsPlaying = false;
 var videoIsPlaying = false;
 
@@ -56,7 +60,7 @@ var Player = React.createClass({
 
     /**
      * [Lifecycle method] invoked once immediately before the initial rendering occurs
-     * NOTE: Where the action happens
+     * NOTE: Where the action happens on pause/play state change
      * Return value determines whether component should render
      */
     shouldComponentUpdate: function(){
@@ -75,30 +79,32 @@ var Player = React.createClass({
         }
 
         //TODO: @elGrecode combine check for audio and video. Two is (maybe) negligible and redundant
-        // Case 2a.) Audio - old state(isPlaying) / new state(isNotPlaying)
+        // Case 2a.) Audio Pause - old state(isPlaying) / new state(isNotPlaying)
         if (audioIsPlaying === true && this.state.audio.isPlaying === false){
             console.log('pausing audio - SWITCHING STATE');
             audioTag.pause();
             audioIsPlaying = false;
             return true;
-        // Case 2b.) Audio - oldState(isNotPlaying) / newState(isNotPlaying)
+        // Case 2b.) Audio Play - oldState(isNotPlaying) / newState(isNotPlaying)
         } else if (audioIsPlaying === false && this.state.audio.isPlaying === true){
             audioTag.play();
             audioIsPlaying = true;
             return true;
         }
 
-        // Case 3a.) Video - old state(isPlaying) / new state(isNotPlaying)
+        // Case 3a.) Video Pause - old state(isPlaying) / new state(isNotPlaying)
         if (videoIsPlaying === true && this.state.video.isPlaying === false){
-            this._clearPlaybackInterval(this.state.video.playbackIntervalId);
-            // TODO: Freeze editor
-            this._capturePausedVideoPlaybackTime(this.state.video.playbackStartTime - Date.now());
+            console.log('DEBUG**: Going to loop over these interval Ids', this.state.video.playbackIntervalIds);
+            this._clearPlaybackIntervals(this.state.video.playbackIntervalIds);
+            // TODO: Freeze editor,
+            // TODO: Also, should these state calculations be handled within the store? (food for thought)
+            this._capturePausedVideoPlaybackTime(this.state.video.pausedVideoTime + (Date.now() - this.state.video.playbackStartTime));
             this._capturePausedVideoState(this.props.editor.getValue());
             videoIsPlaying = false;
             return true;
-        // Case 3b.) Video - oldState(isNotPlaying) / newState(isNotPlaying)
+        // Case 3b.) Video Play - oldState(isNotPlaying) / newState(isNotPlaying)
         } else if (videoIsPlaying === false && this.state.video.isPlaying === true){
-            this._continuePlayingVideo();
+            this._startPlayingVideo();
             videoIsPlaying = true;
             return true;
         }
@@ -145,8 +151,8 @@ var Player = React.createClass({
      * @private
      */
     _changePlayTime: function(evt){
-        console.log('audio player component', evt.target);
-        console.log('audio total duration', evt.target.duration);
+        //console.log('audio player component', evt.target);
+        //console.log('audio total duration', evt.target.duration);
     },
 
     /**
@@ -154,7 +160,6 @@ var Player = React.createClass({
      * @private
      */
     _createAndStartPlayer: function(){
-        // Clear editor or todo: potentially later fill with initial value
         // Initialize
         this.props.editor.setValue("");
         var audioTag =  this.refs.audioPlayer.getDOMNode();
@@ -162,17 +167,15 @@ var Player = React.createClass({
         // Set up event listener on audio, it will keep track of time
         audioTag.addEventListener("timeupdate", this._timeUpdate, false);
 
-        this._replayVideo();
-        // todo: figure out why there is a lag of a second
         setTimeout(function(){
             console.log('updating component and playing audio');
             audioTag.play();
-        }, 1000)
+        }, 1000); // Need a second to account for setInterval of videoPlayer
     },
 
     /**
      * Callback updating the time of the audio
-     * TODO: send this up to the audio object store
+     * TODO: maybe send this up to the audio object store
      * @private
      */
     _timeUpdate: function( evt ){
@@ -183,14 +186,36 @@ var Player = React.createClass({
      * Calculates the replaying of our videoEvent log
      * @private
      */
-    _replayVideo: function(){
-        var videoEvents = this.state.video.playableVideo;
-        var TICKINCREMENT = 1000;
-        var document = this.props.editor.getSession().getDocument();
-        console.log('document', document);
-        console.log('videoEvents', videoEvents);
+    _startPlayingVideo: function(){
+        this._playVideoFromTime(this.state.video.pausedVideoStateText, this.state.video.pausedVideoTime,
+            this.state.video.playableVideo, this.props.editor);
+        //setTimeout(function(){
+        //    // clear playbackInterval after finished
+        //    FCActions.pauseVideo();
+        //}, this.state.video.lastEventTime + 1000);
+    },
 
-        var tick = 0;
+    /**
+     * Plays a video from a given point in time
+     * @param startingText
+     * @param startingTime
+     * @param videoEvents
+     * @param editor
+     * @private
+     */
+    _playVideoFromTime: function( startingText, startingTime, videoEvents, editor){
+        var that = this;
+        console.log('***DEBUG: startingTime', startingTime);
+        var TICKINCREMENT = 1000;
+        var playbackTickTimeoutId = undefined;
+        var editorDocument = editor.getSession().getDocument();
+        console.log('editorDocument', editorDocument);
+        console.log('videoEvents', videoEvents);
+        var tick = Math.floor(startingTime / 1000);
+        var firstTick = tick;
+        var tickPartial = startingTime % 1000;
+
+        editor.setValue(startingText);
         var startTime = Date.now();
         var playbackIntervalId = setInterval(function(){ // Every tick interval, set up queue events to fire
 
@@ -198,48 +223,41 @@ var Player = React.createClass({
             var eventsForTickArr = videoEvents[tick];
             if (eventsForTickArr){ // If we have events for this tick
                 var mskeys = Object.keys(eventsForTickArr);
-                console.log(mskeys);
 
                 mskeys.forEach(function(eventTime, index){
-                    setTimeout(function(){
-                        document.applyDeltas([ eventsForTickArr[eventTime] ]);
-                    }, eventTime);
+                    if (firstTick === tick && eventTime > tickPartial){ // special first tick case
+                        console.log('FIRST TICK!');
+                        setTimeout(function(){
+                            if (that.state.video.isPlaying){
+                                editorDocument.applyDeltas([ eventsForTickArr[eventTime] ]);
+                            } else {
+                                console.log('DEBUG no longer playing so not lingering with', eventsForTickArr[eventTime])
+                            }
+                        }, eventTime);
+                    } else {
+                        setTimeout(function(){
+                            if (that.state.video.isPlaying){
+                                editorDocument.applyDeltas([ eventsForTickArr[eventTime] ]);
+                            } else {
+                                console.log('DEBUG no longer playing so not lingering with', eventsForTickArr[eventTime])
+                            }
+                        }, eventTime);
+                    }
+
                 });
             }
 
             tick++;
         }, TICKINCREMENT);
+        // Don't play forever
+        var playbackEndId = setTimeout(function(){
+            FCActions.pauseVideo(); // clear playbackInterval after finished
+        }, this.state.video.lastEventTime + 1000);
+
         // Register the playbackStartTime and playbackIntervalId globally
         FCActions.registerPlaybackStartTime(startTime);
-        FCActions.registerPlaybackIntervalId(playbackIntervalId);
-
-        setTimeout(function(){
-            // clear playbackInterval after finished
-            FCActions.pauseVideo();
-        }, this.state.video.lastEventTime + 1000);
+        FCActions.registerPlaybackIntervalIds([playbackIntervalId, playbackEndId]);
     },
-
-    /**
-     * Calculates the replaying of our videoEvent log
-     * @private
-     */
-    _continuePlayingVideo: function(){
-        // TODO:NEXT @ElGrecode
-        // What pieces of information do we need to replay this
-        // a.) video paused time
-        // b.) video paused text
-        // c.) videoEvents
-        // Others:
-        // normalize new playing time
-        // ability to start playing video at this time
-        // NOTE*** We can think of current implementation of _replayVideo as basically playing a video from time 0 with empty text
-        // _continuePlaying video is essentially playing from time 'x' with text 'y'
-    },
-
-    // TODO:NEXT @ElGrecode
-    //_playVideoFromTime: function(video, videoStartTime, videoEvents, editorCanvas){
-    //
-    //},
 
     /**
      * Clears a given event loop interval
@@ -249,8 +267,11 @@ var Player = React.createClass({
      * TODO: The result ends up being a few more additional characters are typed after the video is "truly" paused
      * TODO: We almost want to freeze the editor
      */
-    _clearPlaybackInterval: function( intervalId ){
-        clearInterval(intervalId);
+    _clearPlaybackIntervals: function( intervalIds ){
+        _.each(intervalIds, function(id){
+            console.log('clearing these intervals', intervalIds);
+            clearInterval(id);
+        });
     },
 
     /**

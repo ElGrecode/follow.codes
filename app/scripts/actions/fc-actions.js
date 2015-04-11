@@ -129,12 +129,12 @@ var FCActions = {
 
     /**
      * Registers the interval id of the event loop running for key events
-     * @param intervalId
+     * @param {Array} playbackIntervalIds
      */
-    registerPlaybackIntervalId: function( playbackIntervalId ){
+    registerPlaybackIntervalIds: function( playbackIntervalIds ){
         FCDispatcher.handleViewAction({
-            actionType: FCConstants.REGISTER_PLAYBACK_INTERVAL_ID,
-            playbackIntervalId: playbackIntervalId
+            actionType: FCConstants.REGISTER_PLAYBACK_INTERVAL_IDS,
+            playbackIntervalIds: playbackIntervalIds
         });
     },
 

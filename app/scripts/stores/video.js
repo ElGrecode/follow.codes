@@ -15,10 +15,10 @@ function Video( startTime ){
     this.isRecording = false;
     this.isPlaying = false;
     this.recordedEvents = {};
-    this.playbackIntervalId = undefined;
+    this.playbackIntervalIds = undefined;
     this.playbackStartTime = undefined;
-    this.pausedVideoStateText = undefined;
-    this.pausedVideoTime = undefined;
+    this.pausedVideoStateText = ''; // current text of paused video
+    this.pausedVideoTime = 0; // current time of paused video
     return this;
 }
 
@@ -90,11 +90,11 @@ function startRecording(){
 
 /**
  * Mutable function registers the interval id to be able to stop the playback event loop
- * @param playbackIntervalId
+ * @param {Array} playbackIntervalIds
  * @private
  */
-function _registerIntervalId( playbackIntervalId ){
-    _video.playbackIntervalId = playbackIntervalId;
+function _registerIntervalIds( playbackIntervalIds ){
+    _video.playbackIntervalIds = playbackIntervalIds;
 }
 
 /**
@@ -140,13 +140,13 @@ function recordEvent( evt ){
  * Mutable functions changing the playback state of the video to true
  */
 function _playbackVideo(){
-    if (!_video.isRecording){
+    if (!_video.isRecording && !_video.isPlaying){
         console.log('changing isPlaying property in _video');
         _video.isPlaying = true;
     }
 }
 function _pauseVideo(){
-    if (!_video.isRecording){
+    if (!_video.isRecording && _video.isPlaying){
         console.log('changing isPlaying property in _video to false');
         _video.isPlaying = false;
     }
@@ -220,8 +220,8 @@ var VideoStore = _.extend(EventEmitter.prototype, {
                 _playbackVideo();
                 VideoStore.emitChange();
                 break;
-            case FCConstants.REGISTER_PLAYBACK_INTERVAL_ID:
-                _registerIntervalId(payload.action.playbackIntervalId);
+            case FCConstants.REGISTER_PLAYBACK_INTERVAL_IDS:
+                _registerIntervalIds(payload.action.playbackIntervalIds);
                 VideoStore.emitChange();
                 break;
             case FCConstants.REGISTER_PLAYBACK_START_TIME:

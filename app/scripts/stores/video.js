@@ -19,6 +19,7 @@ function Video( startTime ){
     this.playbackStartTime = undefined;
     this.pausedVideoStateText = ''; // current text of paused video
     this.pausedVideoTime = 0; // current time of paused video
+    this.currentTick = 0;
     return this;
 }
 
@@ -86,6 +87,15 @@ function startRecording(){
         _video = new Video(Date.now());
         _video.isRecording = true;
     }
+}
+
+/**
+ * registers the current tick of the video
+ * @param {Integer} tick
+ * @private
+ */
+function _registerCurrentTick( tick ){
+    _video.currentTick = tick;
 }
 
 /**
@@ -218,6 +228,10 @@ var VideoStore = _.extend(EventEmitter.prototype, {
                 break;
             case FCConstants.PLAYBACK_VIDEO:
                 _playbackVideo();
+                VideoStore.emitChange();
+                break;
+            case FCConstants.CURRENT_TICK:
+                _registerCurrentTick(payload.action.currentTick);
                 VideoStore.emitChange();
                 break;
             case FCConstants.REGISTER_PLAYBACK_INTERVAL_IDS:

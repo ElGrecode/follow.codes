@@ -98,8 +98,9 @@ var Player = React.createClass({
             this._clearPlaybackIntervals(this.state.video.playbackIntervalIds);
             // TODO: Freeze editor,
             // TODO: Also, should these state calculations be handled within the store? (food for thought)
-            this._capturePausedVideoPlaybackTime(this.state.video.pausedVideoTime + (Date.now() - this.state.video.playbackStartTime));
+            this._capturePausedVideoPlaybackTime(Date.now() - this.state.video.playbackStartTime);
             this._capturePausedVideoState(this.props.editor.getValue());
+            console.log('this is what I think the value is on screen', this.props.editor.getValue());
             videoIsPlaying = false;
             return true;
         // Case 3b.) Video Play - oldState(isNotPlaying) / newState(isNotPlaying)
@@ -205,19 +206,19 @@ var Player = React.createClass({
      */
     _playVideoFromTime: function( startingText, startingTime, videoEvents, editor){
         var that = this;
-        console.log('***DEBUG: startingTime', startingTime);
         var TICKINCREMENT = 1000;
-        var playbackTickTimeoutId = undefined;
         var editorDocument = editor.getSession().getDocument();
-        console.log('editorDocument', editorDocument);
-        console.log('videoEvents', videoEvents);
-        var tick = Math.floor(startingTime / 1000);
+        var tick = this.state.video.currentTick;
         var firstTick = tick;
         var tickPartial = startingTime % 1000;
+        console.log('***DEBUG: startingTime', startingTime);
+        console.log('editorDocument', editorDocument);
+        console.log('videoEvents', videoEvents);
 
         editor.setValue(startingText);
         var startTime = Date.now();
         var playbackIntervalId = setInterval(function(){ // Every tick interval, set up queue events to fire
+            FCActions.setCurrentTick(tick);
 
             console.log('tick: ' + tick);
             var eventsForTickArr = videoEvents[tick];
@@ -225,15 +226,17 @@ var Player = React.createClass({
                 var mskeys = Object.keys(eventsForTickArr);
 
                 mskeys.forEach(function(eventTime, index){
-                    if (firstTick === tick && eventTime > tickPartial){ // special first tick case
-                        console.log('FIRST TICK!');
-                        setTimeout(function(){
-                            if (that.state.video.isPlaying){
-                                editorDocument.applyDeltas([ eventsForTickArr[eventTime] ]);
-                            } else {
-                                console.log('DEBUG no longer playing so not lingering with', eventsForTickArr[eventTime])
-                            }
-                        }, eventTime);
+                    if (firstTick === tick){ // special first tick case
+                        if (eventTime > tickPartial) {
+                            console.log('FIRST TICK!');
+                            setTimeout(function () {
+                                if (that.state.video.isPlaying) {
+                                    editorDocument.applyDeltas([eventsForTickArr[eventTime]]);
+                                } else {
+                                    console.log('DEBUG no longer playing so not lingering with', eventsForTickArr[eventTime])
+                                }
+                            }, eventTime);
+                        }
                     } else {
                         setTimeout(function(){
                             if (that.state.video.isPlaying){
@@ -255,6 +258,7 @@ var Player = React.createClass({
         }, this.state.video.lastEventTime + 1000);
 
         // Register the playbackStartTime and playbackIntervalId globally
+		// TODO: rename to reflect the fact that we really own need the in between tick time not the entire time.
         FCActions.registerPlaybackStartTime(startTime);
         FCActions.registerPlaybackIntervalIds([playbackIntervalId, playbackEndId]);
     },

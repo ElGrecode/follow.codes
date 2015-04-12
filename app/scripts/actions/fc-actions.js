@@ -176,6 +176,13 @@ var FCActions = {
             actionType: FCConstants.PAUSED_VIDEO_TIME,
             currentVideoTime: currentVideoTime
         });
+    },
+
+    setCurrentTick: function( tick ){
+        FCDispatcher.handleViewAction({
+            actionType: FCConstants.CURRENT_TICK,
+            currentTick: tick
+        })
     }
 
     //

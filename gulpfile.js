@@ -137,7 +137,7 @@ gulp.task('extras', function () {
 });
 
 // Watch
-gulp.task('watch', ['html', 'bundle'], function () { // 'serve'
+gulp.task('watch', ['html', 'bundle', 'jest'], function () { // 'serve'
     // Watch .json files
     gulp.watch('app/scripts/**/*.json', ['json']);
     // Watch .js files
@@ -155,3 +155,6 @@ gulp.task('build', ['html', 'bundle', 'images', 'extras']);
 
 // Default task
 gulp.task('default', ['clean', 'build', 'watch', 'jest' ]); // 'serve'
+
+// Test
+gulp.task('test', ['jest' ]);
